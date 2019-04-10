@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet"/>
+    <meta charset="UTF-8"/>
+    <title>Kayıt Ol</title>
+    <script th:src="@{/js/form.js}"></script>
+
+
+</head>
+<body>
+<div id="login" >
+    <form name='form-signup' th:action="@{/sign-up/processform}" th:object="${user}" method="post">
+
+        <input type="text" placeholder="Mail" th:field="*{mail}"/>
+        <p class="alert alert-danger" th:errors="*{mail}"></p>
+        <p th:text="${exist_mail}"></p>
+        <input type="text" placeholder="Kullanıcı Adı" th:field="*{username}"/>
+        <p class="alert alert-danger" th:errors="*{username}"></p>
+        <p th:text="${exist_username}"></p>
+        <input type="password" placeholder="Şifre" th:field="*{password}" id="password"/>
+        <p class="alert alert-danger2" th:errors="*{password}"></p>
+        <input type="password" placeholder="Şifre" id="password_confirmation"  onchange='check();'/>
+        <span id='message'></span>
+        <p class="alert alert-danger2" th:errors="*{password}"></p>
+
+
+        <input type="submit" value="Sign Up"/>
+    </form>
+</div>
+</body>
+</html>
