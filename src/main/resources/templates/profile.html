@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+
+        <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet"/>
+        <meta charset="UTF-8"/>
+        <title>Profil</title>
+        <script th:src="@{/js/form.js}"></script>
+
+    </head>
+    <body>
+    hosgeldınız <p th:text="${user.username}"></p>
+    <p th:text="${user.mail}"></p>
+    <p th:text="${user.question_status}"></p>
+    <p th:text="${user.date}"></p>
+
+    </body>
+</html>

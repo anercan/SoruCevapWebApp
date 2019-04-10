@@ -27,12 +27,12 @@ public class User {
     private String mail;
 
     @Pattern(regexp = "([a-zA-Z0-9]+\\S)",message = "Lütfen türkçe karakter kullanmayınız")
-    @Size(min=5, max=15,message = "Lütfen 5-15 karakter uzunluğunda kullanıcı adı belirleyiniz.")
+    @Size(min=5, max=15,message = "Kullanıcı adı 5-15 karakter uzunluğunda olmalıdır.")
     @Column(name="username")
     private String username;
 
-    @Pattern(regexp = "([a-zA-Z0-9]+\\S)",message = "Lütfen uygun bir şifre belirleyiniz." )
-    @Size(min=8, max=30,message = "Lütfen en az 8 karakter uzunluğunda bir şifre belirleyiniz.")
+    @Pattern(regexp = "([a-zA-Z0-9]+\\S)",message = "Lütfen uygun bir şifre giriniz." )
+    @Size(min=8, max=30,message = "Lütfen en az 8 karakter uzunluğunda bir şifre giriniz.")
     @Column(name="password")
     private String password;
 

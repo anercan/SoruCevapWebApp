@@ -20,10 +20,8 @@ import java.util.Date;
 @Controller
 public class UserSignUpController {
 
-
         @Autowired
         private Environment env;
-
 
         @Autowired
         UserRepository userRepository;
