@@ -34,7 +34,11 @@ public class UserLogInController {
 
         ModelAndView maw = new ModelAndView();
 
-        if(theBr.hasErrors()) {maw.setViewName("login"); return maw; }//validation control
+        if(theBr.hasErrors()) {
+            maw.addObject("non_exist_mail", ErrorMessage.nonExistMessageMail);
+            maw.setViewName("login");
+            return maw;
+        }
 
         if(userRepository.findByMail(user.getMail()).getPassword().equals(user.getPassword())){
             maw.setViewName("profile");
@@ -46,7 +50,6 @@ public class UserLogInController {
             maw.setViewName("login");
 
             return maw;
-
         }
     }
 }

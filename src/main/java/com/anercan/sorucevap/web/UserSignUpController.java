@@ -30,8 +30,7 @@ public class UserSignUpController {
         public ModelAndView showSignUpForm() {
 
             ModelAndView maw = new ModelAndView();
-            User user = new User();
-            maw.addObject("user", user);
+            maw.addObject("user", new User());
             maw.setViewName("sign-up");
 
             return maw;
@@ -39,9 +38,7 @@ public class UserSignUpController {
 
         @RequestMapping("/processform")
         public ModelAndView actionSignUp(@Valid @ModelAttribute("user") User user, BindingResult theBr) {
-
             Date date = new Date();
-
             ModelAndView maw = new ModelAndView();
 
             if(theBr.hasErrors()) {maw.setViewName("sign-up"); return maw; }//validation control
@@ -52,7 +49,6 @@ public class UserSignUpController {
                 maw.setViewName("sign-up");
 
                 return maw;
-
             }
 
             if(userRepository.findByUsername(user.getUsername())!=null) {
@@ -61,7 +57,6 @@ public class UserSignUpController {
                 maw.setViewName("sign-up");
 
                 return maw;
-
             }
             user.setDate(date);
             user.setQuestion_status(Integer.parseInt(env.getProperty("appconstant.question-status")));
