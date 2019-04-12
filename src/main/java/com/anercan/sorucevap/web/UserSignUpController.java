@@ -59,7 +59,7 @@ public class UserSignUpController {
                 return maw;
             }
             user.setDate(date);
-            user.setQuestion_status(Integer.parseInt(env.getProperty("appconstant.question-status")));
+            user.setQuestionStatus(Integer.parseInt(env.getProperty("appconstant.question-status")));
             userRepository.save(user);
             maw.setViewName("index");
 

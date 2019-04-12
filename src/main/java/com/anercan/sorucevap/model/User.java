@@ -33,11 +33,15 @@ public class User {
     @Size(min=8, max=30,message = "Lütfen en az 8 karakter uzunluğunda bir şifre giriniz.")
     private String password;
 
-    private int question_status;
+    private int questionStatus;
 
     private Date date;
 
     @OneToMany(mappedBy = "user")
     private List<Question> questionList;
+
+    private int questionCount;
+
+    private int answerCount;
 
 }

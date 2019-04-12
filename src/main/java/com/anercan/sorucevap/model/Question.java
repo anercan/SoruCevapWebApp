@@ -27,7 +27,7 @@ public class Question {
     private int dislikeCount;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="OWNER_ID")
+    @JoinColumn(name="USER_ID")
     private User user;
 
     private Date date;
