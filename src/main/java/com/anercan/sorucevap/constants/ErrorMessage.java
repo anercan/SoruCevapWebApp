@@ -9,6 +9,8 @@ public class ErrorMessage {
 
     public static String nonExistMessageMail= "Hatalı mail ya da şifre girdiniz";
 
+    public static String noQuestionRight= "Soru hakkınız bulunmamaktadır";
+
 
 
 

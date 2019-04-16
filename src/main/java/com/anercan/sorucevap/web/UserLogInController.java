@@ -2,6 +2,7 @@ package com.anercan.sorucevap.web;
 
 import com.anercan.sorucevap.constants.ErrorMessage;
 import com.anercan.sorucevap.dao.UserRepository;
+import com.anercan.sorucevap.model.Question;
 import com.anercan.sorucevap.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -30,9 +33,10 @@ public class UserLogInController {
     }
 
     @RequestMapping("/processform")
-    public ModelAndView actionSignUp(@Valid @ModelAttribute("user") User user, BindingResult theBr) {
+    public ModelAndView actionSignUp(@Valid @ModelAttribute("user") User user, BindingResult theBr,HttpServletRequest request) {
 
         ModelAndView maw = new ModelAndView();
+
 
         if(theBr.hasErrors()) {
             maw.addObject("non_exist_mail", ErrorMessage.nonExistMessageMail);
@@ -41,8 +45,13 @@ public class UserLogInController {
         }
 
         if(userRepository.findByMail(user.getMail()).getPassword().equals(user.getPassword())){
+            maw.addObject(new Question());
             maw.setViewName("profile");
             maw.addObject("user",userRepository.findByMail(user.getMail()));
+
+            HttpSession session = request.getSession();
+            session.setAttribute("mail",user.getMail());
+
             return maw;
         }
         else{

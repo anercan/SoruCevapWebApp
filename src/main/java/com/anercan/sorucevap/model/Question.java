@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -29,6 +30,9 @@ public class Question {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="USER_ID")
     private User user;
+
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answer;
 
     private Date date;
 
