@@ -4,6 +4,7 @@ package com.anercan.sorucevap.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -17,8 +18,10 @@ public class Question {
     @SequenceGenerator(name="QuestionSeq",sequenceName="QUESTION_SEQ")
     private Long id;
 
+    @NotNull
     private String title;
 
+    @NotNull
     private String content;
 
     private int answerCount;

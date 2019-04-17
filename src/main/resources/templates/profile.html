@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
 
@@ -10,22 +9,47 @@
 
     </head>
     <body>
-        Hoş Geldiniz <p th:text="${user.username}"></p>
-        Soru Hakkınız:<p th:text="${user.questionStatus}"></p>
+        Hoş Geldiniz <b th:text="${user.username}"></b>
+        Soru Hakkınız:<b th:text="${user.questionStatus}"></b>
 
-        <div id="ask-form" >
+        <div id="ask-form" align="center" >
             <form name='form-ask' th:action="@{/profile/ask}" th:object="${question}" method="post">
 
                 <input type="text" placeholder="Soru Başlığı" th:field="*{title}"/>
-
                 <input type="text" placeholder="Soru İçeriği" th:field="*{content}"/>
 
                 <p th:text="${question_right}"></p>
 
-              <!-- <input type = "hidden"  th:field="*{userId}" />  session olusturulacak-->
-
                 <input type="submit" value="Sor"/>
             </form>
+        </div>
+
+        <div id="users-answered-question-list">
+            <table align="center" border="1">
+                <caption>Cevaplanmış Sorularınız</caption>
+                <th:block th:each="answeredQuestion : ${answeredQuestionList}">
+                    <tr>
+                        <td th:text="${answeredQuestion.title}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="${answeredQuestion.content}"></td>
+                    </tr>
+                </th:block>
+            </table>
+        </div>
+
+        <div id="users-nonanswered-question-list">
+            <table align="center" border="1" >
+                <caption>Cevaplanmamış Sorularınız</caption>
+                <th:block th:each="nonAnsweredQuestion : ${nonAnsweredQuestionList}">
+                    <tr>
+                        <td th:text="${nonAnsweredQuestion.title}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="${nonAnsweredQuestion.content}"></td>
+                    </tr>
+                </th:block>
+            </table>
         </div>
 
     </body>

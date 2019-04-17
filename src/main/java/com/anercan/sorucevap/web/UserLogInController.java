@@ -4,6 +4,7 @@ import com.anercan.sorucevap.constants.ErrorMessage;
 import com.anercan.sorucevap.dao.UserRepository;
 import com.anercan.sorucevap.model.Question;
 import com.anercan.sorucevap.model.User;
+import com.anercan.sorucevap.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -15,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/login")
@@ -23,6 +26,9 @@ public class UserLogInController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ProfileService profileService;
 
     @RequestMapping("/showform")
     ModelAndView showLogInForm(ModelAndView maw){
@@ -51,6 +57,11 @@ public class UserLogInController {
 
             HttpSession session = request.getSession();
             session.setAttribute("mail",user.getMail());
+
+            user = userRepository.findByMail(user.getMail());
+
+            maw.addObject("answeredQuestionList",profileService.getAnsweredQuestions(user));
+            maw.addObject("nonAnsweredQuestionList",profileService.getNotAnsweredQuestions(user));
 
             return maw;
         }
