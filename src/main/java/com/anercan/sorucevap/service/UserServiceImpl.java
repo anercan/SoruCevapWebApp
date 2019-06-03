@@ -13,9 +13,21 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Override
+    public Optional<User> getByMail(String mail) {
+        logger.info("User mail ile getirildi.Mail:{}",mail);
+        return userRepository.findByMail(mail);
+    }
+
     public Optional<User> getByUserId(Long id){
         logger.info("User idsiyle getirildi.Id:{}",id);
         return userRepository.findById(id);
+    }
+
+    @Override
+    public Optional<User> getByUserName(String userName) {
+        logger.info("Username ile getirildi.UserName:{}",userName);
+        return userRepository.findByUsername(userName);
     }
 
     public User createUser(User user) {

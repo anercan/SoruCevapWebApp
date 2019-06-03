@@ -1,4 +1,4 @@
-package com.anercan.sorucevap.controller;
+package com.anercan.sorucevap.controller.auth;
 
 import com.anercan.sorucevap.entity.User;
 import com.anercan.sorucevap.service.UserService;
@@ -7,14 +7,24 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@RequestMapping("/users")
+@RequestMapping("/auth/users")
 @RestController
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/username/{userName}")
+    Optional<User> getByUsername(@PathVariable String userName){
+        return userService.getByUserName(userName);
+    }
+
+    @GetMapping("/mail/{mail}")
+    Optional<User> getByMail(@PathVariable String mail){
+        return userService.getByMail(mail);
+    }
+
+    @GetMapping("id/{id}")
     Optional<User> getByUserId(@PathVariable Long id){
         return userService.getByUserId(id);
     }
