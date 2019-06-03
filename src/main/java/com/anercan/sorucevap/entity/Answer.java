@@ -1,4 +1,4 @@
-package com.anercan.sorucevap.model;
+package com.anercan.sorucevap.entity;
 
 
 import lombok.Data;

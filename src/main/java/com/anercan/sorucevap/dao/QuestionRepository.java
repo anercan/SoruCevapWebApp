@@ -1,9 +1,8 @@
 package com.anercan.sorucevap.dao;
 
-import com.anercan.sorucevap.model.Question;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.anercan.sorucevap.entity.Question;
 
-public interface QuestionRepository extends JpaRepository<Question,Long> {
+public interface QuestionRepository extends BaseRepository<Question, Long> {
 
     Question findByUserId(Long userId);
 

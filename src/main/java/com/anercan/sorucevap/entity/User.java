@@ -1,5 +1,7 @@
-package com.anercan.sorucevap.model;
+package com.anercan.sorucevap.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.Date;
@@ -37,8 +39,13 @@ public class User {
 
     private Date date;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Question> questionList;
+
+    //private List<User> followingsList;
+
+    //private List<User> followersList;
 
     private int questionCount;
 
