@@ -1,10 +1,13 @@
 package com.anercan.sorucevap.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -18,9 +21,11 @@ public class Question {
     @SequenceGenerator(name="QuestionSeq",sequenceName="QUESTION_SEQ")
     private Long id;
 
+    @Size(min=5, max=100,message = "Title 5-100 karakter uzunluğunda olmalıdır.")
     @NotNull
     private String title;
 
+    @Size(min=5, max=250,message = "Content 5-100 karakter uzunluğunda olmalıdır.")
     @NotNull
     private String content;
 
@@ -30,6 +35,7 @@ public class Question {
 
     private int dislikeCount;
 
+    @JsonBackReference
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="USER_ID")
     private User user;

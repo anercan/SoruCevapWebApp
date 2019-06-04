@@ -24,7 +24,7 @@ public class User {
     @SequenceGenerator(name="userSeq",sequenceName="USER_SEQUENCE")
     private Long id;
 
-    @Email(message = "Lütfen Mail Adresinizi Giriniz.")
+    @Email(message = "Mail Adresi Giriniz")
     private String mail;
 
     @Pattern(regexp = "([a-zA-Z0-9]+\\S)",message = "Lütfen türkçe karakter kullanmayınız")
@@ -39,9 +39,11 @@ public class User {
 
     private Date date;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Question> questionList;
+
+    @OneToMany(mappedBy = "user")
+    private List<Answer> answerList;
 
     //private List<User> followingsList;
 

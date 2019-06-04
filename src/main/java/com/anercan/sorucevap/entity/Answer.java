@@ -1,8 +1,10 @@
 package com.anercan.sorucevap.entity;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Data
@@ -13,17 +15,26 @@ public class Answer {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="AnswerSeq")
     @SequenceGenerator(name="AnswerSeq",sequenceName="ANSWER_SEQ")
-    private String id;
+    private Long id;
 
+    @Size(min=5, max=250,message = "Content 5-100 karakter uzunluğunda olmalıdır.")
     private String content;
 
     private int likeCount;
 
     private int dislikeCount;
 
+    @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="QUESTION_ID")
     private Question question;
+
+    @JsonBackReference
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="USER_ID")
+    private User user;
+
+    private boolean verified=false;
 
     private Date date;
 }
