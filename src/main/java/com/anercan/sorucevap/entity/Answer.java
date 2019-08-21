@@ -2,6 +2,7 @@ package com.anercan.sorucevap.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -24,7 +25,7 @@ public class Answer {
 
     private int dislikeCount;
 
-    @JsonIgnore
+    @JsonBackReference
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="QUESTION_ID")
     private Question question;

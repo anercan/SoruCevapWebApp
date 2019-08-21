@@ -1,10 +1,12 @@
 package com.anercan.sorucevap.controller.auth;
 
 import com.anercan.sorucevap.entity.Answer;
+import com.anercan.sorucevap.entity.JsonResponse;
 import com.anercan.sorucevap.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -15,12 +17,12 @@ public class AnswerController {
     AnswerService answerService;
 
     @GetMapping("id/{id}")
-    Optional<Answer> getByUserId(@PathVariable Long id){
+    JsonResponse<Optional<Answer>> getByUserId(@PathVariable Long id){
         return answerService.getById(id);
     }
 
     @PostMapping
-    Answer createAnswer(@RequestBody Answer answer){
+    JsonResponse<Answer> createAnswer(@RequestBody Answer answer){
         return answerService.createAnswer(answer);
     }
 
@@ -30,12 +32,17 @@ public class AnswerController {
     }
 
     @GetMapping("{id}/like")
-    Answer likeAnswer(@PathVariable Long id){
+    JsonResponse<Answer> likeAnswer(@PathVariable Long id){
         return answerService.likeAnswer(id);
     }
 
     @GetMapping("{id}/dislike")
-    Answer dislikeAnswer(@PathVariable Long id){
+    JsonResponse<Answer> dislikeAnswer(@PathVariable Long id){
         return answerService.dislikeAnswer(id);
+    }
+
+    @GetMapping("question/{id}")
+    JsonResponse<List<Answer>> getAnswersByQuestionId(@PathVariable Long id){
+        return answerService.getAnswersByQuestionId(id);
     }
 }

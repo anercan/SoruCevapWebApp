@@ -2,6 +2,9 @@ package com.anercan.sorucevap.service;
 
 import com.anercan.sorucevap.SorucevapApplication;
 
+import com.anercan.sorucevap.dao.AnswerRepository;
+import com.anercan.sorucevap.dao.QuestionRepository;
+import com.anercan.sorucevap.dao.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,15 @@ import java.util.Date;
 
 @Service
 public class BaseService {
+
+    @Autowired
+    QuestionRepository questionRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    AnswerRepository answerRepository;
 
     @Autowired
     protected Environment env;

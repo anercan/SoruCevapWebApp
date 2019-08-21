@@ -1,21 +1,12 @@
 package com.anercan.sorucevap.service;
 
-import com.anercan.sorucevap.dao.QuestionRepository;
-import com.anercan.sorucevap.dao.UserRepository;
 import com.anercan.sorucevap.entity.Question;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.anercan.sorucevap.entity.User;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
 public class QuestionServiceImpl extends BaseService implements QuestionService {
-
-    @Autowired
-    QuestionRepository questionRepository;
-
-    @Autowired
-    UserRepository userRepository;
 
     @Override
     public Optional<Question> getById(Long id) {
@@ -25,11 +16,18 @@ public class QuestionServiceImpl extends BaseService implements QuestionService 
 
     @Override
     public Question createQuestion(Question question) {
-        question.getUser().setQuestionStatus(question.getUser().getQuestionStatus()-1);
-        question.getUser().setQuestionCount(question.getUser().getAnswerCount()+1);
-        question.setDate(date);
-        logger.info("Soru oluşturuldu.Soru:{}",question);
-        return questionRepository.save(question);
+        User user = userRepository.findById(question.getUser().getId()).get();
+        if(user.getQuestionStatus()>0) {
+            user.setQuestionStatus(user.getQuestionStatus() - 1);
+            user.setQuestionCount(user.getQuestionCount() + 1);
+            question.setDate(date);
+            question.setUser(user);
+            logger.info("Soru oluşturuldu.Soru:{}",question.getId());
+            return questionRepository.save(question);
+        }
+        else
+            logger.info("Soru Hakkı Yok.");
+            return null;
     }
 
     @Override

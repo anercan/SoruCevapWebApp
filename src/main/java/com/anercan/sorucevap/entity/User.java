@@ -2,8 +2,10 @@ package com.anercan.sorucevap.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +13,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-
 
 @Entity
 @Table(name="USER_DB")
@@ -39,11 +39,13 @@ public class User {
 
     private Date date;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
-    private List<Question> questionList;
+    private List<Question> questionList = new ArrayList<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
-    private List<Answer> answerList;
+    private List<Answer> answerList = new ArrayList<>();
 
     //private List<User> followingsList;
 

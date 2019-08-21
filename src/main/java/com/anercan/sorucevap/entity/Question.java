@@ -3,11 +3,13 @@ package com.anercan.sorucevap.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,10 +40,11 @@ public class Question {
     @JsonBackReference
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="USER_ID")
-    private User user;
+    private User user = new User();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "question")
-    private List<Answer> answer;
+    private List<Answer> answer = new ArrayList<>();
 
     private Date date;
 
