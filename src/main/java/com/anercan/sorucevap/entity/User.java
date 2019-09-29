@@ -43,10 +43,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Question> questionList = new ArrayList<>();
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "user")
-    private List<Answer> answerList = new ArrayList<>();
-
     //private List<User> followingsList;
 
     //private List<User> followersList;

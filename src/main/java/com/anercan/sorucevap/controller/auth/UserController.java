@@ -1,9 +1,12 @@
 package com.anercan.sorucevap.controller.auth;
 
+import com.anercan.sorucevap.entity.JsonResponse;
 import com.anercan.sorucevap.entity.User;
+import com.anercan.sorucevap.entity.dto.UserDto;
 import com.anercan.sorucevap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.Json;
 
 import java.util.Optional;
 
@@ -30,9 +33,9 @@ public class UserController {
     }
 
     @PostMapping
-    User createUser(@RequestBody User user){
+    JsonResponse<Boolean> createUser(@RequestBody UserDto userDto){
 
-        return userService.createUser(user);
+        return userService.createUser(userDto);
     }
 
 

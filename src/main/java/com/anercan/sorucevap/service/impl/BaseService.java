@@ -1,4 +1,4 @@
-package com.anercan.sorucevap.service;
+package com.anercan.sorucevap.service.impl;
 
 import com.anercan.sorucevap.SorucevapApplication;
 

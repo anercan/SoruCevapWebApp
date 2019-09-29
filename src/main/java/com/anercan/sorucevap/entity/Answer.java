@@ -25,15 +25,9 @@ public class Answer {
 
     private int dislikeCount;
 
-    @JsonBackReference
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="QUESTION_ID")
     private Question question;
-
-    @JsonBackReference
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="USER_ID")
-    private User user;
 
     private boolean verified=false;
 

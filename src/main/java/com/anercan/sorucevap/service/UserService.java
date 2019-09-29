@@ -1,6 +1,8 @@
 package com.anercan.sorucevap.service;
 
+import com.anercan.sorucevap.entity.JsonResponse;
 import com.anercan.sorucevap.entity.User;
+import com.anercan.sorucevap.entity.dto.UserDto;
 
 import java.util.Optional;
 
@@ -12,5 +14,5 @@ public interface UserService {
 
     Optional<User> getByUserName(String userName);
 
-    User createUser(User user);
+    JsonResponse<Boolean> createUser(UserDto userdto);
 }

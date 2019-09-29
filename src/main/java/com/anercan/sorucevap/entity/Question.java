@@ -37,12 +37,10 @@ public class Question {
 
     private int dislikeCount;
 
-    @JsonBackReference
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="USER_ID")
     private User user = new User();
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "question")
     private List<Answer> answer = new ArrayList<>();
 

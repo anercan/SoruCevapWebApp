@@ -1,17 +1,15 @@
-package com.anercan.sorucevap.service;
+package com.anercan.sorucevap.service.impl;
 
 import com.anercan.sorucevap.entity.Answer;
 import com.anercan.sorucevap.entity.JsonResponse;
-import com.anercan.sorucevap.entity.Question;
-import com.anercan.sorucevap.entity.User;
+import com.anercan.sorucevap.service.AnswerService;
 import org.springframework.stereotype.Service;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AnswerServiceImpl extends BaseService implements AnswerService  {
+public class AnswerServiceImpl extends BaseService implements AnswerService {
 
     @Override
     public JsonResponse<List<Answer>> getAnswersByQuestionId(Long id) {
@@ -36,7 +34,7 @@ public class AnswerServiceImpl extends BaseService implements AnswerService  {
     @Override
     public JsonResponse<Answer> createAnswer(Answer answer) {
         JsonResponse<Answer> response = new JsonResponse<>();
-        if(userRepository.findById(answer.getUser().getId()).isPresent() && questionRepository.findById(answer.getQuestion().getId()).isPresent()){
+       /* if(userRepository.findById(questionRepository.findById(answer.getQuestion().getId()).isPresent()){
         User user = userRepository.findById(answer.getUser().getId()).get();
         Question question = questionRepository.findById(answer.getQuestion().getId()).get();
 
@@ -52,21 +50,21 @@ public class AnswerServiceImpl extends BaseService implements AnswerService  {
         else{
             response.setCode(-1);
             response.setMessage("fail");
-        }
+        }*/
         return response;
     }
 
     @Override
     public void deleteAnswer(Long id) {
-        answerRepository.findById(id).get().getUser().setAnswerCount(answerRepository.findById(id).get().getUser().getAnswerCount()-1);
+      /*  answerRepository.findById(id).get().getUser().setAnswerCount(answerRepository.findById(id).get().getUser().getAnswerCount()-1);
         answerRepository.delete(answerRepository.findById(id).get());
-        logger.info("Cevap silindi.id:{}",id);
+        logger.info("Cevap silindi.id:{}",id);*/
     }
 
     @Override
     public JsonResponse<Answer> likeAnswer(Long id) {
         JsonResponse<Answer> response = new JsonResponse<>();
-        if(answerRepository.findById(id).isPresent()){
+      /*  if(answerRepository.findById(id).isPresent()){
             Answer answer = answerRepository.findById(id).get();
             answer.setLikeCount(answer.getLikeCount()+1);
 
@@ -83,14 +81,14 @@ public class AnswerServiceImpl extends BaseService implements AnswerService  {
         else{
             response.setCode(-1);
             response.setMessage("fail");
-        }
+        }*/
         return response;
     }
 
     @Override
     public JsonResponse<Answer> dislikeAnswer(Long id) {
         Answer answer = answerRepository.findById(id).get();
-        User user = userRepository.findById(answer.getUser().getId()).get();
+     /*   User user = userRepository.findById(answer.getUser().getId()).get();
 
         answer.setDislikeCount(answer.getDislikeCount()+1);
         if(answer.isVerified()){
@@ -100,7 +98,7 @@ public class AnswerServiceImpl extends BaseService implements AnswerService  {
             }
         }
         user.setAnswerCount(user.getAnswerCount()+1);
-        logger.info("Cevap dislikelandi.Cevap id:{}",answer.getId());
+        logger.info("Cevap dislikelandi.Cevap id:{}",answer.getId());*/
         return new JsonResponse(answerRepository.save(answer));
     }
 

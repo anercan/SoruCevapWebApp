@@ -1,12 +1,18 @@
-package com.anercan.sorucevap.service;
+package com.anercan.sorucevap.service.impl;
 
+import com.anercan.sorucevap.dao.QuestionRepository;
+import com.anercan.sorucevap.dao.UserRepository;
 import com.anercan.sorucevap.entity.Question;
 import com.anercan.sorucevap.entity.User;
+import com.anercan.sorucevap.service.QuestionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
 public class QuestionServiceImpl extends BaseService implements QuestionService {
+
+    //todo baseserviceden al repoları buraya
 
     @Override
     public Optional<Question> getById(Long id) {

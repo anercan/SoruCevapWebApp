@@ -1,7 +1,10 @@
-package com.anercan.sorucevap.service;
+package com.anercan.sorucevap.service.impl;
 
 import com.anercan.sorucevap.dao.UserRepository;
+import com.anercan.sorucevap.entity.JsonResponse;
 import com.anercan.sorucevap.entity.User;
+import com.anercan.sorucevap.entity.dto.UserDto;
+import com.anercan.sorucevap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,12 +33,18 @@ public class UserServiceImpl extends BaseService implements UserService {
         return userRepository.findByUsername(userName);
     }
 
-    public User createUser(User user) {
-        user.setAnswerCount(0);
+    @Override
+    public JsonResponse<Boolean> createUser(UserDto userDto) {
+        JsonResponse response = new JsonResponse();
+        User user = new User();
         user.setDate(date);
-        user.setQuestionCount(0);
+        user.setMail(userDto.getMail());
+        user.setPassword(userDto.getPassword());
         user.setQuestionStatus(Integer.parseInt(env.getProperty("appconstant.question-status")));
+        userRepository.save(user);
         logger.info("Yeni User oluşturuldu.User:{}",user);
-        return userRepository.save(user);
+        response.setValue(true);
+        response.setCode(0);
+        return response;
     }
 }
