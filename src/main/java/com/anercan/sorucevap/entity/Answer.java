@@ -25,6 +25,8 @@ public class Answer {
 
     private int dislikeCount;
 
+    private Long ownerId; // todo ForeignKey?
+
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="QUESTION_ID")
     private Question question;

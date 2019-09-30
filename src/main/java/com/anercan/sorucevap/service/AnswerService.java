@@ -2,6 +2,7 @@ package com.anercan.sorucevap.service;
 
 import com.anercan.sorucevap.entity.Answer;
 import com.anercan.sorucevap.entity.JsonResponse;
+import com.anercan.sorucevap.entity.dto.AnswerDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,12 +13,12 @@ public interface AnswerService {
 
      JsonResponse<Optional<Answer>> getById(Long id);
 
-     JsonResponse<Answer> createAnswer(Answer answer);
+     JsonResponse<Boolean> createAnswer(AnswerDto answerDto);
 
-     void deleteAnswer(Long id);
+     JsonResponse<Boolean> deleteAnswer(AnswerDto answerDto);
 
-     JsonResponse<Answer> dislikeAnswer(Long id);
+     JsonResponse<Boolean> dislikeAnswer(Long id);
 
-     JsonResponse<Answer> likeAnswer(Long id) ;
+     JsonResponse<Boolean> likeAnswer(Long id) ;
 
 }

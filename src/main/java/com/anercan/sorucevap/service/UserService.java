@@ -8,11 +8,11 @@ import java.util.Optional;
 
 public interface UserService {
 
-    Optional<User> getByMail(String mail);
+    JsonResponse<Optional<User>> getByMail(String mail);
 
-    Optional<User> getByUserId(Long id);
+    JsonResponse<Optional<User>> getByUserId(Long id);
 
-    Optional<User> getByUserName(String userName);
+    JsonResponse<Optional<User>> getByUserName(String userName);
 
     JsonResponse<Boolean> createUser(UserDto userdto);
 }

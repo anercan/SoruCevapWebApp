@@ -1,6 +1,8 @@
 package com.anercan.sorucevap.controller.auth;
 
+import com.anercan.sorucevap.entity.JsonResponse;
 import com.anercan.sorucevap.entity.Question;
+import com.anercan.sorucevap.entity.dto.QuestionDto;
 import com.anercan.sorucevap.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,12 +32,12 @@ public class QuestionController {
     }
 
     @PostMapping
-    Question createQuestion(@RequestBody Question question){
-        return questionService.createQuestion(question);
+    JsonResponse<Boolean> createQuestion(@RequestBody QuestionDto questionDto){
+        return questionService.createQuestion(questionDto);
     }
 
-    @DeleteMapping("id/{id}")
-    void deleteQuestion(@PathVariable Long id){
-        questionService.deleteQuestion(id);
+    @PostMapping("delete")
+    JsonResponse<Boolean> deleteQuestion(@RequestBody QuestionDto questionDto){
+       return questionService.deleteQuestion(questionDto);
     }
 }

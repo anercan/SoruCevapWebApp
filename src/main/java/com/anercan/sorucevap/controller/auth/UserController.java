@@ -18,17 +18,17 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/username/{userName}")
-    Optional<User> getByUsername(@PathVariable String userName){
+    JsonResponse<Optional<User>> getByUsername(@PathVariable String userName){
         return userService.getByUserName(userName);
     }
 
     @GetMapping("/mail/{mail}")
-    Optional<User> getByMail(@PathVariable String mail){
+    JsonResponse<Optional<User>>getByMail(@PathVariable String mail){
         return userService.getByMail(mail);
     }
 
     @GetMapping("id/{id}")
-    Optional<User> getByUserId(@PathVariable Long id){
+    JsonResponse<Optional<User>> getByUserId(@PathVariable Long id){
         return userService.getByUserId(id);
     }
 

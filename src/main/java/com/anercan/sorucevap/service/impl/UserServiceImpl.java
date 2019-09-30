@@ -17,20 +17,29 @@ public class UserServiceImpl extends BaseService implements UserService {
     UserRepository userRepository;
 
     @Override
-    public Optional<User> getByMail(String mail) {
+    public JsonResponse<Optional<User>> getByMail(String mail) {
+        if (!userRepository.findByMail(mail).isPresent()) {
+            new JsonResponse<>().setCode(-1);
+        }
         logger.info("User mail ile getirildi.Mail:{}",mail);
-        return userRepository.findByMail(mail);
+        return new JsonResponse<>(userRepository.findByMail(mail));
     }
 
-    public Optional<User> getByUserId(Long id){
+    public JsonResponse<Optional<User>> getByUserId(Long id){
+        if (!userRepository.findById(id).isPresent()) {
+            new JsonResponse<>().setCode(-1);
+        }
         logger.info("User idsiyle getirildi.Id:{}",id);
-        return userRepository.findById(id);
+        return new JsonResponse<>(userRepository.findById(id));
     }
 
     @Override
-    public Optional<User> getByUserName(String userName) {
+    public JsonResponse<Optional<User>> getByUserName(String userName) {
+        if (!userRepository.findByUsername(userName).isPresent()) {
+            new JsonResponse<>().setCode(-1);
+        }
         logger.info("Username ile getirildi.UserName:{}",userName);
-        return userRepository.findByUsername(userName);
+        return new JsonResponse<>(userRepository.findByUsername(userName));
     }
 
     @Override

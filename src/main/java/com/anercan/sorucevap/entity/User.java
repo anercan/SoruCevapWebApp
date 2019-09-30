@@ -47,8 +47,6 @@ public class User {
 
     //private List<User> followersList;
 
-    private int questionCount;
-
     private int answerCount;
 
 }

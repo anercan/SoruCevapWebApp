@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class BaseDto {
 
-    Date createDate;
+    Date createDate =new Date();
     Long id;
 
 }

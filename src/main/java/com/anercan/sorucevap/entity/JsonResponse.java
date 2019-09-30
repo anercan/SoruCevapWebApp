@@ -1,5 +1,7 @@
 package com.anercan.sorucevap.entity;
 
+import java.util.Optional;
+
 public class JsonResponse<T> {
 
     int code=0;
@@ -11,6 +13,11 @@ public class JsonResponse<T> {
 
     public JsonResponse(T value) {
         this.value = value;
+    }
+
+    public JsonResponse(T value,int code) {
+        this.value = value;
+        this.code = code;
     }
 
     public String getMessage() {
