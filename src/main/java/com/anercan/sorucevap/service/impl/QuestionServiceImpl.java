@@ -25,7 +25,7 @@ public class QuestionServiceImpl extends BaseService implements QuestionService 
 
     @Override
     public JsonResponse<Boolean> createQuestion(QuestionDto questionDto) {
-        User user = userRepository.findById(questionDto.getOwnerId()).get();
+        User user = userRepository.findById(questionDto.getUserDto().getId()).get();
         if(user!=null && user.getQuestionStatus()>0) {
             Question question = new Question();
             question.setUser(user);

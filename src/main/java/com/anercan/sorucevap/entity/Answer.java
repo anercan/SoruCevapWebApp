@@ -18,14 +18,16 @@ public class Answer {
     @SequenceGenerator(name="AnswerSeq",sequenceName="ANSWER_SEQ")
     private Long id;
 
-    @Size(min=5, max=250,message = "Content 5-100 karakter uzunluğunda olmalıdır.")
+    @Size(min=5, max=250,message = "Must be 5-250 char")
     private String content;
 
     private int likeCount;
 
     private int dislikeCount;
 
-    private Long ownerId; // todo ForeignKey?
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="OWNER_ID")
+    private User user;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="QUESTION_ID")

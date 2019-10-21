@@ -38,17 +38,18 @@ public class AnswerServiceImpl extends BaseService implements AnswerService {
 
     @Override
     public JsonResponse<Boolean> createAnswer(AnswerDto answerDto) {
-        Optional<Question> question = questionRepository.findById(answerDto.getQuestionId());
+        /*Optional<Question> question = questionRepository.findById(answerDto.getQuestionDto().getId());
         if(question.isPresent()){
             new JsonResponse<>().setCode(-1);
-        }
+        }*/
         Answer answer = new Answer();
-        Optional<User> owner = userRepository.findById(answerDto.getUserId());
-        owner.get().setAnswerCount(owner.get().getAnswerCount()+1);
+        User owner = userRepository.findById(answerDto.getUserDto().getId()).get();
+        Question question = questionRepository.findById(answerDto.getQuestionDto().getId()).get();
+        answer.setQuestion(question);
+        answer.setUser(owner);
         answer.setDate(date);
         answer.setContent(answerDto.getContent());
         logger.info("Cevap oluşturuldu.Cevap:{}",answer.getId());
-        userRepository.save(owner.get());
         answerRepository.save(answer);
         return new JsonResponse<>(Boolean.TRUE);
     }
@@ -59,8 +60,7 @@ public class AnswerServiceImpl extends BaseService implements AnswerService {
         if (!answer.isPresent() || answer.get().getQuestion() == null) {
             return new JsonResponse<>(false,-1);
         }
-        Optional<User> owner = userRepository.findById(answerDto.getUserId());
-        owner.get().setAnswerCount(owner.get().getAnswerCount()-1);
+        Optional<User> owner = userRepository.findById(answerDto.getUserDto().getId());
         if (answer.get().isVerified()) {
             owner.get().setQuestionStatus(owner.get().getQuestionStatus()-1);
         }

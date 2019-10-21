@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class QuestionDto extends BaseDto {
 
-    Long ownerId;
+    UserDto userDto;
     String content;
     String title;
 

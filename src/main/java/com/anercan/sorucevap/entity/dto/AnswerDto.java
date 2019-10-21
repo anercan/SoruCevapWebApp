@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class AnswerDto extends BaseDto {
 
-    private Long questionId;
+    private QuestionDto questionDto;
 
-    private Long userId;
+    private UserDto userDto;
 
     private String content;
 

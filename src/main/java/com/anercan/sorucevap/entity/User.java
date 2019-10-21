@@ -24,15 +24,15 @@ public class User {
     @SequenceGenerator(name="userSeq",sequenceName="USER_SEQUENCE")
     private Long id;
 
-    @Email(message = "Mail Adresi Giriniz")
+    @Email(message = "Invalid Mail")
     private String mail;
 
-    @Pattern(regexp = "([a-zA-Z0-9]+\\S)",message = "Lütfen türkçe karakter kullanmayınız")
+    @Pattern(regexp = "([a-zA-Z0-9]+\\S)",message = "Invalid UserName")
     @Size(min=5, max=15,message = "Kullanıcı adı 5-15 karakter uzunluğunda olmalıdır.")
     private String username;
 
-    @Pattern(regexp = "([a-zA-Z0-9]+\\S)",message = "Lütfen uygun bir şifre giriniz." )
-    @Size(min=8, max=30,message = "Lütfen en az 8 karakter uzunluğunda bir şifre giriniz.")
+    @Pattern(regexp = "([a-zA-Z0-9]+\\S)",message = "Invalid pwd" )
+    @Size(min=8, max=30,message = "Invalid pwd")
     private String password;
 
     private int questionStatus;
@@ -43,10 +43,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Question> questionList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Answer> answerList;
+
     //private List<User> followingsList;
 
     //private List<User> followersList;
-
-    private int answerCount;
-
 }
