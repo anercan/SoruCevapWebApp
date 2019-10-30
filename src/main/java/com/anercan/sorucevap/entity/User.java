@@ -15,38 +15,43 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="USER_DB")
+@Table(name = "USER_DB")
 @Data
 public class User {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="userSeq")
-    @SequenceGenerator(name="userSeq",sequenceName="USER_SEQUENCE")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeq")
+    @SequenceGenerator(name = "userSeq", sequenceName = "USER_SEQUENCE")
     private Long id;
 
     @Email(message = "Invalid Mail")
     private String mail;
 
-    @Pattern(regexp = "([a-zA-Z0-9]+\\S)",message = "Invalid UserName")
-    @Size(min=5, max=15,message = "Kullanıcı adı 5-15 karakter uzunluğunda olmalıdır.")
+    @Pattern(regexp = "([a-zA-Z0-9]+\\S)", message = "Invalid UserName")
+    @Size(min = 5, max = 15, message = "Invalid UserName Size")
     private String username;
 
-    @Pattern(regexp = "([a-zA-Z0-9]+\\S)",message = "Invalid pwd" )
-    @Size(min=8, max=30,message = "Invalid pwd")
+    @Pattern(regexp = "([a-zA-Z0-9]+\\S)", message = "Invalid pwd")
+    @Size(min = 8, max = 30, message = "Invalid pwd size")
     private String password;
 
     private int questionStatus;
 
     private Date date;
 
-    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(mappedBy = "user")
     private List<Question> questionList = new ArrayList<>();
 
+    @JsonBackReference
     @OneToMany(mappedBy = "user")
     private List<Answer> answerList;
 
-    //private List<User> followingsList;
+    //todo private List<Question> questionFollow;
 
-    //private List<User> followersList;
+    //todo private List<User> followingsList;
+
+    //todo private List<User> followersList;
+
+
 }

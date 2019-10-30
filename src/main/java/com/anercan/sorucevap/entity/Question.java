@@ -15,19 +15,19 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name="Question_db")
+@Table(name = "Question_db")
 public class Question {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="QuestionSeq")
-    @SequenceGenerator(name="QuestionSeq",sequenceName="QUESTION_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "QuestionSeq")
+    @SequenceGenerator(name = "QuestionSeq", sequenceName = "QUESTION_SEQ")
     private Long id;
 
-    @Size(min=5, max=100,message = "Title 5-100 karakter uzunluğunda olmalıdır.")
+    @Size(min = 5, max = 100, message = "Title size limit does not reach requirements")
     @NotNull
     private String title;
 
-    @Size(min=5, max=250,message = "Content 5-100 karakter uzunluğunda olmalıdır.")
+    @Size(min = 5, max = 250, message = "Content size limit does not reach requirements")
     @NotNull
     private String content;
 
@@ -35,13 +35,16 @@ public class Question {
 
     private int dislikeCount;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="USER_ID")
-    private User user ;
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "question")
     private List<Answer> answer = new ArrayList<>();
 
     private Date date;
+
 
 }
