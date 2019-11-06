@@ -24,11 +24,10 @@ public class AnswerServiceImpl extends BaseService implements AnswerService {
     @Override
     public JsonResponse<Optional<Answer>> getById(Long id) {
         JsonResponse<Optional<Answer>> response = new JsonResponse<>();
-        if(answerRepository.findById(id).isPresent()){
-            logger.info("Cevap id ile getirildi.id:{}",id);
-            return  new JsonResponse(answerRepository.findById(id));
-        }
-        else{
+        if (answerRepository.findById(id).isPresent()) {
+            logger.info("Cevap id ile getirildi.id:{}", id);
+            return new JsonResponse(answerRepository.findById(id));
+        } else {
             logger.info("Girilen id uygun cevap yok");
             response.setMessage("Girilen id uygun cevap yok");
             response.setCode(-1);
@@ -49,7 +48,7 @@ public class AnswerServiceImpl extends BaseService implements AnswerService {
         answer.setUser(owner);
         answer.setDate(date);
         answer.setContent(answerDto.getContent());
-        logger.info("Cevap oluşturuldu.Cevap:{}",answer.getId());
+        logger.info("Cevap oluşturuldu.Cevap:{}", answer.getId());
         answerRepository.save(answer);
         return new JsonResponse<>(Boolean.TRUE);
     }
@@ -58,14 +57,14 @@ public class AnswerServiceImpl extends BaseService implements AnswerService {
     public JsonResponse<Boolean> deleteAnswer(AnswerDto answerDto) {
         Optional<Answer> answer = answerRepository.findById(answerDto.getId());
         if (!answer.isPresent() || answer.get().getQuestion() == null) {
-            return new JsonResponse<>(false,-1);
+            return new JsonResponse<>(false, -1);
         }
         Optional<User> owner = userRepository.findById(answerDto.getUserDto().getId());
         if (answer.get().isVerified()) {
-            owner.get().setQuestionStatus(owner.get().getQuestionStatus()-1);
+            owner.get().setQuestionStatus(owner.get().getQuestionStatus() - 1);
         }
         answerRepository.delete(answer.get());
-        logger.info("Cevap silindi.id:{}",answer);
+        logger.info("Cevap silindi.id:{}", answer);
         return new JsonResponse<>(true);
     }
 

@@ -18,32 +18,32 @@ public class AnswerController {
     AnswerService answerService;
 
     @GetMapping("id/{id}")
-    JsonResponse<Optional<Answer>> getByUserId(@PathVariable Long id){
+    JsonResponse<Optional<Answer>> getByUserId(@PathVariable Long id) {
         return answerService.getById(id);
     }
 
     @PostMapping
-    JsonResponse<Boolean> createAnswer(@RequestBody AnswerDto answerDto){
+    JsonResponse<Boolean> createAnswer(@RequestBody AnswerDto answerDto) {
         return answerService.createAnswer(answerDto);
     }
 
     @PostMapping("/delete")
-    void deleteAnswer(@RequestBody AnswerDto answerDto){
+    void deleteAnswer(@RequestBody AnswerDto answerDto) {
         answerService.deleteAnswer(answerDto);
     }
 
-  /*  @GetMapping("{id}/like")
-    JsonResponse<Answer> likeAnswer(@PathVariable Long id){
-        return answerService.likeAnswer(id);
-    }
+    /*  @GetMapping("{id}/like")
+      JsonResponse<Answer> likeAnswer(@PathVariable Long id){
+          return answerService.likeAnswer(id);
+      }
 
-    @GetMapping("{id}/dislike")
-    JsonResponse<Answer> dislikeAnswer(@PathVariable Long id){
-        return answerService.dislikeAnswer(id);
-    }
-*/
+      @GetMapping("{id}/dislike")
+      JsonResponse<Answer> dislikeAnswer(@PathVariable Long id){
+          return answerService.dislikeAnswer(id);
+      }
+  */
     @GetMapping("question/{id}")
-    JsonResponse<List<Answer>> getAnswersByQuestionId(@PathVariable Long id){
+    JsonResponse<List<Answer>> getAnswersByQuestionId(@PathVariable Long id) {
         return answerService.getAnswersByQuestionId(id);
     }
 }

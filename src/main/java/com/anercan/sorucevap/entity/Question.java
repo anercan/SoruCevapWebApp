@@ -40,11 +40,17 @@ public class Question {
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    @ManyToMany(mappedBy = "questionFollow")
+    private List<User> usersWhoFollow;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "question")
     private List<Answer> answer = new ArrayList<>();
 
     private Date date;
 
-
+    @Override
+    public String toString() {
+        return "Question id =" + id;
+    }
 }

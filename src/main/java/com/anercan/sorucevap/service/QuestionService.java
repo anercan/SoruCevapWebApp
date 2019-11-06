@@ -14,4 +14,7 @@ public interface QuestionService {
     JsonResponse<Boolean> createQuestion(QuestionDto questionDto);
 
     JsonResponse<Boolean> deleteQuestion(QuestionDto questionDto);
+
+    JsonResponse<Boolean> addToFollowList(QuestionDto questionDto);
+
 }

@@ -6,6 +6,7 @@ import com.anercan.sorucevap.entity.dto.QuestionDto;
 import com.anercan.sorucevap.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.Json;
 
 import java.util.Optional;
 
@@ -27,17 +28,22 @@ public class QuestionController {
     }*/
 
     @GetMapping("id/{id}")
-    Optional<Question> getByUserId(@PathVariable Long id){
+    Optional<Question> getByUserId(@PathVariable Long id) {
         return questionService.getById(id);
     }
 
     @PostMapping
-    JsonResponse<Boolean> createQuestion(@RequestBody QuestionDto questionDto){
+    JsonResponse<Boolean> createQuestion(@RequestBody QuestionDto questionDto) {
         return questionService.createQuestion(questionDto);
     }
 
+    @PostMapping("add-to-followList")
+    JsonResponse<Boolean> addToFollowList(@RequestBody QuestionDto questionDto) {
+        return questionService.addToFollowList(questionDto);
+    }
+
     @PostMapping("delete")
-    JsonResponse<Boolean> deleteQuestion(@RequestBody QuestionDto questionDto){
-       return questionService.deleteQuestion(questionDto);
+    JsonResponse<Boolean> deleteQuestion(@RequestBody QuestionDto questionDto) {
+        return questionService.deleteQuestion(questionDto);
     }
 }

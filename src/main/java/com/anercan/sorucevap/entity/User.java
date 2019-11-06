@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import org.hibernate.annotations.ManyToAny;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,6 +38,8 @@ public class User {
 
     private int questionStatus;
 
+    private boolean isActive = true;
+
     private Date date;
 
     @JsonBackReference
@@ -47,8 +50,19 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Answer> answerList;
 
-    //todo private List<Question> questionFollow;
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "Question_Follower",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "question_id")}
+    )
+    private List<Question> questionFollow = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "User id =" + id;
+
+    }
     //todo private List<User> followingsList;
 
     //todo private List<User> followersList;

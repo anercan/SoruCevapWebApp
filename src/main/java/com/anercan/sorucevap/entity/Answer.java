@@ -39,4 +39,9 @@ public class Answer {
     private boolean verified = false;
 
     private Date date;
+
+    @Override
+    public String toString() {
+        return "Answer id =" + id;
+    }
 }
