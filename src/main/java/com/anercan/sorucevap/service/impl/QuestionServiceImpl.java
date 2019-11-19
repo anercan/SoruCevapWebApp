@@ -1,18 +1,28 @@
 package com.anercan.sorucevap.service.impl;
 
+import com.anercan.sorucevap.dao.AnswerRepository;
+import com.anercan.sorucevap.dao.QuestionRepository;
+import com.anercan.sorucevap.dao.UserRepository;
+import com.anercan.sorucevap.entity.Category;
 import com.anercan.sorucevap.entity.JsonResponse;
 import com.anercan.sorucevap.entity.Question;
 import com.anercan.sorucevap.entity.User;
 import com.anercan.sorucevap.entity.dto.QuestionDto;
 import com.anercan.sorucevap.service.QuestionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class QuestionServiceImpl extends BaseService implements QuestionService {
 
-    //todo baseserviceden al repoları buraya
+    @Autowired
+    QuestionRepository questionRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public Optional<Question> getById(Long id) {
@@ -21,6 +31,12 @@ public class QuestionServiceImpl extends BaseService implements QuestionService 
         }
         logger.info("Soru id ile getirildi.id:{}", id);
         return questionRepository.findById(id);
+    }
+
+    @Override
+    public JsonResponse<List<Question>>  getByCategoryId(Long id) {
+        questionRepository.getListByCategory(id);
+        return null; //todo
     }
 
     @Override

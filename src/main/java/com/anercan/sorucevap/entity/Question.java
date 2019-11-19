@@ -1,8 +1,5 @@
 package com.anercan.sorucevap.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -15,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "Question_db")
+@Table(name = "QUESTIONS")
 public class Question {
 
     @Id
@@ -39,6 +36,14 @@ public class Question {
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "Category_Relations",
+            joinColumns = {@JoinColumn(name = "question_id")},
+            inverseJoinColumns = {@JoinColumn(name = "category_id")}
+    )
+    private List<Category> categories;
 
     @ManyToMany(mappedBy = "questionFollow")
     private List<User> usersWhoFollow;

@@ -16,7 +16,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "USER_DB")
+@Table(name = "USERS")
 @Data
 public class User {
 

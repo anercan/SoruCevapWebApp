@@ -32,6 +32,11 @@ public class QuestionController {
         return questionService.getById(id);
     }
 
+    @GetMapping("categories/{id}")
+    Optional<Question> getByCategoryId(@PathVariable Long id) {
+        return null;//questionService.getByCategory(id);
+    }
+
     @PostMapping
     JsonResponse<Boolean> createQuestion(@RequestBody QuestionDto questionDto) {
         return questionService.createQuestion(questionDto);

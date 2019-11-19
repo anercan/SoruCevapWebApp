@@ -1,5 +1,7 @@
 package com.anercan.sorucevap.service.impl;
 
+import com.anercan.sorucevap.dao.AnswerRepository;
+import com.anercan.sorucevap.dao.QuestionRepository;
 import com.anercan.sorucevap.dao.UserRepository;
 import com.anercan.sorucevap.entity.Answer;
 import com.anercan.sorucevap.entity.JsonResponse;
@@ -7,6 +9,7 @@ import com.anercan.sorucevap.entity.Question;
 import com.anercan.sorucevap.entity.User;
 import com.anercan.sorucevap.entity.dto.AnswerDto;
 import com.anercan.sorucevap.service.AnswerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springfox.documentation.spring.web.json.Json;
 
@@ -15,6 +18,15 @@ import java.util.Optional;
 
 @Service
 public class AnswerServiceImpl extends BaseService implements AnswerService {
+
+    @Autowired
+    QuestionRepository questionRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    AnswerRepository answerRepository;
 
     @Override
     public JsonResponse<List<Answer>> getAnswersByQuestionId(Long id) {

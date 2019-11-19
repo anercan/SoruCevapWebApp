@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "ANSWER_DB")
+@Table(name = "ANSWERS")
 public class Answer {
 
     @Id

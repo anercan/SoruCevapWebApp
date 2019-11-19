@@ -18,15 +18,6 @@ import java.util.Date;
 public class BaseService {
 
     @Autowired
-    QuestionRepository questionRepository;
-
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    AnswerRepository answerRepository;
-
-    @Autowired
     protected Environment env;
 
     protected static final Logger logger = LoggerFactory.getLogger(SorucevapApplication.class);
