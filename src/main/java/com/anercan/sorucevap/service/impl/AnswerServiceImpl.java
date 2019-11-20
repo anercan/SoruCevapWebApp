@@ -11,7 +11,6 @@ import com.anercan.sorucevap.entity.dto.AnswerDto;
 import com.anercan.sorucevap.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.List;
 import java.util.Optional;

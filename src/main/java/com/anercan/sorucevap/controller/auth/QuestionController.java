@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.spring.web.json.Json;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequestMapping("/auth/question")
@@ -33,8 +34,8 @@ public class QuestionController {
     }
 
     @GetMapping("categories/{id}")
-    Optional<Question> getByCategoryId(@PathVariable Long id) {
-        return null;//questionService.getByCategory(id);
+    JsonResponse<List<Question>> getByCategoryId(@PathVariable Long id) {
+        return questionService.getQuestionsByCategoryId(id);
     }
 
     @PostMapping

@@ -12,7 +12,7 @@ public interface QuestionService {
 
     Optional<Question> getById(Long id);
 
-    JsonResponse<List<Question>> getByCategoryId(Long id);
+    JsonResponse<List<Question>> getQuestionsByCategoryId(Long id);
 
     JsonResponse<Boolean> createQuestion(QuestionDto questionDto);
 

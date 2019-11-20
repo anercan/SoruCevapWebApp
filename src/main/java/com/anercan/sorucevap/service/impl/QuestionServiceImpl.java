@@ -1,9 +1,7 @@
 package com.anercan.sorucevap.service.impl;
 
-import com.anercan.sorucevap.dao.AnswerRepository;
 import com.anercan.sorucevap.dao.QuestionRepository;
 import com.anercan.sorucevap.dao.UserRepository;
-import com.anercan.sorucevap.entity.Category;
 import com.anercan.sorucevap.entity.JsonResponse;
 import com.anercan.sorucevap.entity.Question;
 import com.anercan.sorucevap.entity.User;
@@ -34,9 +32,11 @@ public class QuestionServiceImpl extends BaseService implements QuestionService 
     }
 
     @Override
-    public JsonResponse<List<Question>>  getByCategoryId(Long id) {
-        questionRepository.getListByCategory(id);
-        return null; //todo
+    public JsonResponse<List<Question>> getQuestionsByCategoryId(Long id) {
+        if (!questionRepository.getListByCategory(id).isEmpty()) {
+            return new JsonResponse<>(questionRepository.getListByCategory(id));
+        }
+        return new JsonResponse<>(null, -1);
     }
 
     @Override
@@ -51,10 +51,10 @@ public class QuestionServiceImpl extends BaseService implements QuestionService 
             question.setDate(date);
             logger.info("Soru oluşturuldu.Soru:{}", question);
             questionRepository.save(question);
-            return new JsonResponse<>(true, 0);
 
-        } else
-            logger.info("Soru Hakkı ya da user yok.user:{}", user);
+            return new JsonResponse<>(true, 0);
+        }
+        logger.info("Soru Hakkı ya da user yok.user:{}", user);
         return new JsonResponse<>(false, -1);
     }
 
