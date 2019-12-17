@@ -13,7 +13,9 @@ import java.util.Date;
 public class BaseService {
 
     protected static final Logger logger = LoggerFactory.getLogger(SorucevapApplication.class);
+
     @Autowired
     protected Environment env;
+
     Date date = new Date();
 }

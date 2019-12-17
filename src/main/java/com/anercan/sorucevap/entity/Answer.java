@@ -1,18 +1,16 @@
 package com.anercan.sorucevap.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Date;
 
 @Data
 @Entity
 @Table(name = "ANSWERS")
-public class Answer {
+public class Answer extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AnswerSeq")
@@ -37,8 +35,6 @@ public class Answer {
     private Question question;
 
     private boolean verified = false;
-
-    private Date date;
 
     @Override
     public String toString() {

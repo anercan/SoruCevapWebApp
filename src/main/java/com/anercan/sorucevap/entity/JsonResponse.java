@@ -1,11 +1,9 @@
 package com.anercan.sorucevap.entity;
 
-import java.util.Optional;
-
 public class JsonResponse<T> {
 
-    int code=0;
-    String message="Success";
+    int code = 0;
+    String message = "Success";
     T value;
 
     public JsonResponse() {
@@ -15,7 +13,7 @@ public class JsonResponse<T> {
         this.value = value;
     }
 
-    public JsonResponse(T value,int code) {
+    public JsonResponse(T value, int code) {
         this.value = value;
         this.code = code;
     }

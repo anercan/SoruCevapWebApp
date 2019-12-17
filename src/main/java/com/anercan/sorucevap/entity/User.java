@@ -8,13 +8,12 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "USERS")
 @Data
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeq")
@@ -35,8 +34,6 @@ public class User {
     private int questionStatus;
 
     private boolean isActive = true;
-
-    private Date date;
 
     @JsonBackReference
     @OneToMany(mappedBy = "user")

@@ -7,13 +7,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Data
 @Table(name = "QUESTIONS")
-public class Question {
+public class Question extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "QuestionSeq")
@@ -28,14 +27,12 @@ public class Question {
     @NotNull
     private String content;
 
-    private int likeCount;
-
-    private int dislikeCount;
-
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
+
+    //private Reports reports //todo report question
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
@@ -51,8 +48,6 @@ public class Question {
     @JsonManagedReference
     @OneToMany(mappedBy = "question")
     private List<Answer> answer = new ArrayList<>();
-
-    private Date date;
 
     @Override
     public String toString() {
