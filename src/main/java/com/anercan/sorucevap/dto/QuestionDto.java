@@ -1,4 +1,4 @@
-package com.anercan.sorucevap.entity.dto;
+package com.anercan.sorucevap.dto;
 
 import lombok.Data;
 

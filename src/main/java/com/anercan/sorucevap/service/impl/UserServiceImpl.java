@@ -3,7 +3,7 @@ package com.anercan.sorucevap.service.impl;
 import com.anercan.sorucevap.dao.UserRepository;
 import com.anercan.sorucevap.entity.JsonResponse;
 import com.anercan.sorucevap.entity.User;
-import com.anercan.sorucevap.entity.dto.UserDto;
+import com.anercan.sorucevap.dto.UserDto;
 import com.anercan.sorucevap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

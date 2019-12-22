@@ -5,7 +5,7 @@ import com.anercan.sorucevap.dao.UserRepository;
 import com.anercan.sorucevap.entity.JsonResponse;
 import com.anercan.sorucevap.entity.Question;
 import com.anercan.sorucevap.entity.User;
-import com.anercan.sorucevap.entity.dto.QuestionDto;
+import com.anercan.sorucevap.dto.QuestionDto;
 import com.anercan.sorucevap.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

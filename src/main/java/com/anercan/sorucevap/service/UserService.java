@@ -2,7 +2,7 @@ package com.anercan.sorucevap.service;
 
 import com.anercan.sorucevap.entity.JsonResponse;
 import com.anercan.sorucevap.entity.User;
-import com.anercan.sorucevap.entity.dto.UserDto;
+import com.anercan.sorucevap.dto.UserDto;
 
 import java.util.Optional;
 
@@ -15,4 +15,6 @@ public interface UserService {
     JsonResponse<Optional<User>> getByUserName(String userName);
 
     JsonResponse<Boolean> createUser(UserDto userdto);
+
+    //todo silinen userların question ve cevaplarda anonim yazması
 }

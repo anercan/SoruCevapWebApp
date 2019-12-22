@@ -10,7 +10,11 @@ public class JsonResponse<T> {
     }
 
     public JsonResponse(T value) {
-        this.value = value;
+        if(value == null){
+            this.code = -1;
+        }else{
+            this.value = value;
+        }
     }
 
     public JsonResponse(T value, int code) {
