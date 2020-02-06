@@ -1,4 +1,4 @@
-package com.anercan.sorucevap.entity;
+package com.anercan.sorucevap.resource;
 
 public class JsonResponse<T> {
 

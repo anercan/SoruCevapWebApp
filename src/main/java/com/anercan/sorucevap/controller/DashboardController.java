@@ -1,15 +1,16 @@
-package com.anercan.sorucevap.controller.dashboard;
+package com.anercan.sorucevap.controller;
 
 import com.anercan.sorucevap.dto.DashboardDto;
-import com.anercan.sorucevap.entity.JsonResponse;
+import com.anercan.sorucevap.resource.CategoryResource;
+import com.anercan.sorucevap.resource.JsonResponse;
 import com.anercan.sorucevap.resource.DashboardResource;
 import com.anercan.sorucevap.service.impl.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+//controller altına tasınacak
 @RequestMapping("/dashboard")
 @RestController
 public class DashboardController {
@@ -21,13 +22,18 @@ public class DashboardController {
         return dashboardService;
     }
 
-    @PostMapping("/getQuestionCount")
+    @PostMapping("/get-question-count")
     JsonResponse<DashboardResource> getQuestionCount(@RequestBody DashboardDto dashboardDto) {
         return new JsonResponse<>(getService().getQuestionCount(dashboardDto));
     }
 
-    @PostMapping("/getAnswerCount")
+    @PostMapping("/get-answer-count")
     JsonResponse<DashboardResource> getAnswerCount(@RequestBody DashboardDto dashboardDto) {
         return new JsonResponse<>(getService().getAnswerCount(dashboardDto));
+    }
+
+    @GetMapping("get-categories")
+    JsonResponse<List<CategoryResource>> getCategories(){
+        return new JsonResponse<>(getService().getCategories(3));
     }
 }

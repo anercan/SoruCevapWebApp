@@ -1,7 +1,7 @@
 package com.anercan.sorucevap.service.impl;
 
 import com.anercan.sorucevap.dao.UserRepository;
-import com.anercan.sorucevap.entity.JsonResponse;
+import com.anercan.sorucevap.resource.JsonResponse;
 import com.anercan.sorucevap.entity.User;
 import com.anercan.sorucevap.dto.UserDto;
 import com.anercan.sorucevap.service.UserService;

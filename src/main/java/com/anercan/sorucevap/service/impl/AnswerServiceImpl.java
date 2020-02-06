@@ -4,7 +4,7 @@ import com.anercan.sorucevap.dao.AnswerRepository;
 import com.anercan.sorucevap.dao.QuestionRepository;
 import com.anercan.sorucevap.dao.UserRepository;
 import com.anercan.sorucevap.entity.Answer;
-import com.anercan.sorucevap.entity.JsonResponse;
+import com.anercan.sorucevap.resource.JsonResponse;
 import com.anercan.sorucevap.entity.Question;
 import com.anercan.sorucevap.entity.User;
 import com.anercan.sorucevap.dto.AnswerDto;

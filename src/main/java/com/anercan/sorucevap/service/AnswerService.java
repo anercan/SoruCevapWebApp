@@ -1,7 +1,7 @@
 package com.anercan.sorucevap.service;
 
 import com.anercan.sorucevap.entity.Answer;
-import com.anercan.sorucevap.entity.JsonResponse;
+import com.anercan.sorucevap.resource.JsonResponse;
 import com.anercan.sorucevap.dto.AnswerDto;
 
 import java.util.List;

@@ -23,11 +23,11 @@ insert into categories values (2,'Sağlık');
 insert into categories values (3,'Spor');
 insert into categories values (4,'Siyaset');
 
-insert into category_relations values (1,1);
+insert into category_relations values (1,2);
 insert into category_relations values (2,1);
 insert into category_relations values (3,1);
 insert into category_relations values (4,2);
-insert into category_relations values (5,3);
+insert into category_relations values (5,2);
 
 insert into question_follower values (1,1);
 insert into question_follower values (1,2);

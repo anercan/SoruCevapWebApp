@@ -1,6 +1,6 @@
 package com.anercan.sorucevap.service;
 
-import com.anercan.sorucevap.entity.JsonResponse;
+import com.anercan.sorucevap.resource.JsonResponse;
 import com.anercan.sorucevap.entity.Question;
 import com.anercan.sorucevap.dto.QuestionDto;
 
