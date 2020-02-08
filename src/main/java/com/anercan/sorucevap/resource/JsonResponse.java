@@ -1,8 +1,12 @@
 package com.anercan.sorucevap.resource;
 
+import lombok.Data;
+import org.springframework.http.HttpStatus;
+
+@Data
 public class JsonResponse<T> {
 
-    int code = 0;
+    HttpStatus httpStatus = HttpStatus.OK;
     String message = "Success";
     T value;
 
@@ -11,38 +15,15 @@ public class JsonResponse<T> {
 
     public JsonResponse(T value) {
         if(value == null){
-            this.code = -1;
+            this.httpStatus = HttpStatus.BAD_REQUEST;
         }else{
             this.value = value;
         }
     }
 
-    public JsonResponse(T value, int code) {
+    public JsonResponse(T value, HttpStatus code) {
         this.value = value;
-        this.code = code;
+        this.httpStatus = code;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public T getValue() {
-        return value;
-    }
-
-    public void setValue(T value) {
-        this.value = value;
-    }
 }

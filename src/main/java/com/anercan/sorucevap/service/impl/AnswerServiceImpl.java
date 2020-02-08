@@ -3,11 +3,11 @@ package com.anercan.sorucevap.service.impl;
 import com.anercan.sorucevap.dao.AnswerRepository;
 import com.anercan.sorucevap.dao.QuestionRepository;
 import com.anercan.sorucevap.dao.UserRepository;
+import com.anercan.sorucevap.dto.AnswerDto;
 import com.anercan.sorucevap.entity.Answer;
-import com.anercan.sorucevap.resource.JsonResponse;
 import com.anercan.sorucevap.entity.Question;
 import com.anercan.sorucevap.entity.User;
-import com.anercan.sorucevap.dto.AnswerDto;
+import com.anercan.sorucevap.resource.JsonResponse;
 import com.anercan.sorucevap.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,17 +33,14 @@ public class AnswerServiceImpl extends BaseService implements AnswerService {
     }
 
     @Override
-    public JsonResponse<Optional<Answer>> getById(Long id) {
+    public JsonResponse<Answer> getById(Long id) {
         JsonResponse<Optional<Answer>> response = new JsonResponse<>();
         if (answerRepository.findById(id).isPresent()) {
             logger.info("Cevap id ile getirildi.id:{}", id);
-            return new JsonResponse(answerRepository.findById(id));
-        } else {
-            logger.info("Girilen id uygun cevap yok");
-            response.setMessage("Girilen id uygun cevap yok");
-            response.setCode(-1);
-            return response;
+            return new JsonResponse(answerRepository.findById(id).get());
         }
+        logger.info("Girilen id uygun cevap yok.id:{}", id);
+        return createFailResult();
     }
 
     @Override
@@ -68,7 +65,7 @@ public class AnswerServiceImpl extends BaseService implements AnswerService {
     public JsonResponse<Boolean> deleteAnswer(AnswerDto answerDto) {
         Optional<Answer> answer = answerRepository.findById(answerDto.getId());
         if (!answer.isPresent() || answer.get().getQuestion() == null) {
-            return new JsonResponse<>(false, -1);
+            return createFailResult();
         }
         Optional<User> owner = userRepository.findById(answerDto.getUserDto().getId());
         if (answer.get().isVerified()) {

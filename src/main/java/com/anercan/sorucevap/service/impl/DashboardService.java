@@ -1,5 +1,6 @@
 package com.anercan.sorucevap.service.impl;
 
+import ch.qos.logback.core.rolling.helper.IntegerTokenConverter;
 import com.anercan.sorucevap.dao.AnswerRepository;
 import com.anercan.sorucevap.dao.CategoryRepository;
 import com.anercan.sorucevap.dao.QuestionRepository;
@@ -14,9 +15,11 @@ import com.anercan.sorucevap.entity.Question;
 import com.anercan.sorucevap.enums.FilterStatus;
 import com.anercan.sorucevap.resource.CategoryResource;
 import com.anercan.sorucevap.resource.DashboardResource;
+import com.anercan.sorucevap.resource.JsonResponse;
 import com.anercan.sorucevap.service.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import springfox.documentation.spring.web.json.Json;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -24,6 +27,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,7 +49,7 @@ public class DashboardService extends BaseService {
     AnswerRepository answerRepository;
 
 
-    public DashboardResource getQuestionCount(DashboardDto dto) {
+    public JsonResponse<DashboardResource> getQuestionCount(DashboardDto dto) {
         QuestionFilterDto questionFilterDtoCurrent = new QuestionFilterDto();
         QuestionFilterDto questionFilterDtoPrevious = new QuestionFilterDto();
         DashboardResource resource = new DashboardResource();
@@ -61,7 +65,7 @@ public class DashboardService extends BaseService {
             questionFilterDtoPrevious.setStartDate(Date.from(localDate.minusMonths(2).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             questionFilterDtoPrevious.setEndDate(Date.from(localDate.minusMonths(1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
         } else {
-            return null;
+            return createFailResult();
         }
 
         List<Question> questionListCurrent = questionRepository.findAll(questionQuery.filter(questionFilterDtoCurrent));
@@ -70,11 +74,11 @@ public class DashboardService extends BaseService {
         resource.setCurrentData(questionListCurrent.size() + "");
         resource.setPreviousData(questionListPrevious.size() + "");
 
-        return resource;
+        return new JsonResponse<>(resource);
     }
 
 
-    public DashboardResource getAnswerCount(DashboardDto dto) {
+    public JsonResponse<DashboardResource> getAnswerCount(DashboardDto dto) {
 
         AnswerFilterDto answerFilterDtoCurrent = new AnswerFilterDto();
         AnswerFilterDto answerFilterDtoPrevious = new AnswerFilterDto();
@@ -91,7 +95,7 @@ public class DashboardService extends BaseService {
             answerFilterDtoPrevious.setStartDate(Date.from(localDate.minusMonths(2).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             answerFilterDtoPrevious.setEndDate(Date.from(localDate.minusMonths(1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
         } else {
-            return null;
+            return createFailResult();
         }
 
         List<Answer> answerListCurrent = answerRepository.findAll(answerQuery.filter(answerFilterDtoCurrent));
@@ -100,19 +104,25 @@ public class DashboardService extends BaseService {
         resource.setCurrentData(answerListCurrent.size() + "");
         resource.setPreviousData(answerListPrevious.size() + "");
 
-        return resource;
+        return new JsonResponse<>(resource);
     }
 
-    public List<CategoryResource> getCategories(int numberOfCategory) {
-        HashMap<Long, String> categoryMap = new HashMap<Long, String>();
+    public JsonResponse<List<CategoryResource>> getCategories(int numberOfCategory) {
+        HashMap<Long, Integer> categoryMap = new HashMap<>();
         List<CategoryResource> resources = new ArrayList<>();
 
         List<Category> categories = categoryRepository.findAll();
 
-        categories.forEach(category -> categoryMap.put(category.getId(), questionRepository.getNumberByCategory(category.getId()) + ""));
-        HashMap<Long, String> sortedCategoryMap = CommonUtils.sortHashMapByValues(categoryMap); //todo sortu düzelt
+        categories.forEach(category -> categoryMap.put(category.getId(), questionRepository.getNumberByCategory(category.getId())));
+        HashMap<Long, Integer> sortedCategoryMap =categoryMap.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, HashMap::new));
 
-        for (int i = 0; i < numberOfCategory; i++) {
+        for (int i = 0; i <= numberOfCategory; i++) {
             String categoryId = sortedCategoryMap.keySet().toArray()[i].toString();
             resources.add(
                     new CategoryResource(categories.stream().filter(
@@ -121,6 +131,6 @@ public class DashboardService extends BaseService {
             );
 
         }
-        return resources;
+        return new JsonResponse<>(resources);
     }
 }

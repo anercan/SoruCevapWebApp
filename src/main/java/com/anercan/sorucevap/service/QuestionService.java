@@ -1,16 +1,14 @@
 package com.anercan.sorucevap.service;
 
-import com.anercan.sorucevap.resource.JsonResponse;
-import com.anercan.sorucevap.entity.Question;
 import com.anercan.sorucevap.dto.QuestionDto;
-
+import com.anercan.sorucevap.entity.Question;
+import com.anercan.sorucevap.resource.JsonResponse;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface QuestionService {
 
-    Optional<Question> getById(Long id);
+    JsonResponse<Question> getById(Long id);
 
     JsonResponse<List<Question>> getQuestionsByCategoryId(Long id);
 

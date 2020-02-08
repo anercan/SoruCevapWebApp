@@ -7,9 +7,9 @@ public class CategoryResource {
 
     String categoryName;
 
-    String numberOfQuestion;
+    int numberOfQuestion;
 
-    public CategoryResource (String categoryName , String numberOfQuestion){
+    public CategoryResource (String categoryName , int numberOfQuestion){
         this.categoryName = categoryName;
         this.numberOfQuestion = numberOfQuestion;
     }

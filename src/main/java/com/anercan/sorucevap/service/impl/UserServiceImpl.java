@@ -1,9 +1,9 @@
 package com.anercan.sorucevap.service.impl;
 
 import com.anercan.sorucevap.dao.UserRepository;
-import com.anercan.sorucevap.resource.JsonResponse;
-import com.anercan.sorucevap.entity.User;
 import com.anercan.sorucevap.dto.UserDto;
+import com.anercan.sorucevap.entity.User;
+import com.anercan.sorucevap.resource.JsonResponse;
 import com.anercan.sorucevap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,41 +19,45 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Override
     public JsonResponse<Optional<User>> getByMail(String mail) {
         if (!userRepository.findByMail(mail).isPresent()) {
-            new JsonResponse<>().setCode(-1);
+            createFailResult();
         }
-        logger.info("User mail ile getirildi.Mail:{}",mail);
+        logger.info("User mail ile getirildi.Mail:{}", mail);
         return new JsonResponse<>(userRepository.findByMail(mail));
     }
 
-    public JsonResponse<Optional<User>> getByUserId(Long id){
+    public JsonResponse<Optional<User>> getByUserId(Long id) {
         if (!userRepository.findById(id).isPresent()) {
-            new JsonResponse<>().setCode(-1);
+            createFailResult();
         }
-        logger.info("User idsiyle getirildi.Id:{}",id);
+        logger.info("User idsiyle getirildi.Id:{}", id);
         return new JsonResponse<>(userRepository.findById(id));
     }
 
     @Override
     public JsonResponse<Optional<User>> getByUserName(String userName) {
         if (!userRepository.findByUsername(userName).isPresent()) {
-            new JsonResponse<>().setCode(-1);
+            createFailResult();
         }
-        logger.info("Username ile getirildi.UserName:{}",userName);
+        logger.info("Username ile getirildi.UserName:{}", userName);
         return new JsonResponse<>(userRepository.findByUsername(userName));
     }
 
     @Override
     public JsonResponse<Boolean> createUser(UserDto userDto) {
-        JsonResponse response = new JsonResponse();
-        User user = new User();
-        user.setDate(date);
-        user.setMail(userDto.getMail());
-        user.setPassword(userDto.getPassword());
-        user.setQuestionStatus(Integer.parseInt(env.getProperty("appconstant.question-status")));
-        userRepository.save(user);
-        logger.info("Yeni User oluşturuldu.User:{}",user);
-        response.setValue(true);
-        response.setCode(0);
-        return response;
+        try {
+            User user = new User();
+            user.setDate(date);
+            user.setMail(userDto.getMail());
+            user.setPassword(userDto.getPassword());
+            user.setQuestionStatus(Integer.parseInt(env.getProperty("appconstant.question-status")));
+            userRepository.save(user);
+            logger.info("Yeni User oluşturuldu.User:{}", user);
+
+            return new JsonResponse(Boolean.TRUE);
+        } catch (Exception e) {
+            logger.info("User oluşturulma başarısız.UserDto:{}", userDto);
+            return createFailResult();
+        }
+
     }
 }

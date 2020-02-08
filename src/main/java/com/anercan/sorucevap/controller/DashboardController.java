@@ -24,16 +24,16 @@ public class DashboardController {
 
     @PostMapping("/get-question-count")
     JsonResponse<DashboardResource> getQuestionCount(@RequestBody DashboardDto dashboardDto) {
-        return new JsonResponse<>(getService().getQuestionCount(dashboardDto));
+        return getService().getQuestionCount(dashboardDto);
     }
 
     @PostMapping("/get-answer-count")
     JsonResponse<DashboardResource> getAnswerCount(@RequestBody DashboardDto dashboardDto) {
-        return new JsonResponse<>(getService().getAnswerCount(dashboardDto));
+        return getService().getAnswerCount(dashboardDto);
     }
 
     @GetMapping("get-categories")
     JsonResponse<List<CategoryResource>> getCategories(){
-        return new JsonResponse<>(getService().getCategories(3));
+        return getService().getCategories(3);
     }
 }

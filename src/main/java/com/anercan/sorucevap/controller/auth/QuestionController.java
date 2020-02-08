@@ -28,7 +28,7 @@ public class QuestionController {
     }*/
 
     @GetMapping("id/{id}")
-    Optional<Question> getByUserId(@PathVariable Long id) {
+    JsonResponse<Question> getByUserId(@PathVariable Long id) {
         return questionService.getById(id);
     }
 
