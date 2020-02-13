@@ -45,11 +45,20 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public JsonResponse<Boolean> createUser(UserDto userDto) {
+        Optional<User> userOpt = userRepository.findByUsername(userDto.getUsername().toLowerCase());
+        if (userOpt.isPresent()){
+            return new JsonResponse<>(false,PropertyUtil.getStringValue("app.text.login.user.already.exist","User Already Exist!"));
+        }
+        Optional<User> userOptMail = userRepository.findByMail(userDto.getMail());
+        if (userOptMail.isPresent()){
+            return new JsonResponse<>(false,PropertyUtil.getStringValue("app.text.login.mail.already.exist","Mail Already Exist!"));
+        }
         try {
             User user = new User();
             user.setDate(date);
-            user.setMail(userDto.getMail());
+            user.setMail(userDto.getMail().toLowerCase()); //todo pattern eklenecek
             user.setPassword(userDto.getPassword());
+            user.setUsername(userDto.getUsername().toLowerCase());
             user.setQuestionStatus(PropertyUtil.getIntegerValue("app.user.default.question.right",5));
             userRepository.save(user);
             logger.info("Yeni User oluşturuldu.User:{}", user);

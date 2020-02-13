@@ -111,7 +111,7 @@ public class DashboardService extends BaseService {
         List<Category> categories = categoryRepository.findAll();
 
         categories.forEach(category -> categoryMap.put(category.getId(), questionRepository.getNumberByCategory(category.getId())));
-        HashMap<Long, Integer> sortedCategoryMap =categoryMap.entrySet()
+        HashMap<Long, Integer> sortedCategoryMap = categoryMap.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue())
                 .collect(Collectors.toMap(
@@ -119,7 +119,11 @@ public class DashboardService extends BaseService {
                         Map.Entry::getValue,
                         (oldValue, newValue) -> oldValue, HashMap::new));
 
-        for (int i = 0; i <= numberOfCategory; i++) {
+        if (categoryMap.isEmpty()) {
+            return createFailResult();
+        }
+
+        for (int i = 0; i < numberOfCategory; i++) {
             String categoryId = sortedCategoryMap.keySet().toArray()[i].toString();
             resources.add(
                     new CategoryResource(categories.stream().filter(

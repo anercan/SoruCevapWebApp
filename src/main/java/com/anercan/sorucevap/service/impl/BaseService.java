@@ -26,6 +26,7 @@ public class BaseService {
 
         response.setHttpStatus(HttpStatus.BAD_REQUEST);
         response.setMessage("Fail Result");
+        response.setValue(Boolean.FALSE);
 
         return response;
     }

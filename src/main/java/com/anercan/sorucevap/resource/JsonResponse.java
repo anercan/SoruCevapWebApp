@@ -26,4 +26,9 @@ public class JsonResponse<T> {
         this.httpStatus = code;
     }
 
+    public JsonResponse(T value, String message) {
+        this.value = value;
+        this.message = message;
+    }
+
 }

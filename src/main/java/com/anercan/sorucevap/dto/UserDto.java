@@ -7,5 +7,5 @@ public class UserDto extends BaseDto {
 
     private String mail;
     private String password;
-
+    private String username;
 }

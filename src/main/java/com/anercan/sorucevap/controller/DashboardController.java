@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//controller altına tasınacak
 @RequestMapping("/dashboard")
 @RestController
 public class DashboardController {
@@ -32,7 +31,7 @@ public class DashboardController {
         return getService().getAnswerCount(dashboardDto);
     }
 
-    @GetMapping("get-categories")
+    @GetMapping("/get-categories")
     JsonResponse<List<CategoryResource>> getCategories(){
         return getService().getCategories(3);
     }

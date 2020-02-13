@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class SecurityConfig {
 
-    private static String createJWT(String userId) {
+    public static String createJWT(String userId) {
         long sessionTime = PropertyUtil.getLongValue("api.security.key", 1800000L);
         String subject = PropertyUtil.getStringValue("api.security.subject", "refresh");
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -32,7 +32,7 @@ public class SecurityConfig {
         return builder.compact();
     }
 
-    private static Boolean checkJWT(String jwt) {
+    public static Boolean checkJWT(String jwt) {
         //This line will throw an exception if it is not a signed JWS (as expected)
         try {
             Jwts.parser()
