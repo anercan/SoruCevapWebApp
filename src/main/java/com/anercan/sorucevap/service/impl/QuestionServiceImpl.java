@@ -1,5 +1,6 @@
 package com.anercan.sorucevap.service.impl;
 
+import com.anercan.sorucevap.dao.BaseRepository;
 import com.anercan.sorucevap.dao.QuestionRepository;
 import com.anercan.sorucevap.dao.UserRepository;
 import com.anercan.sorucevap.dto.QuestionDto;
@@ -88,4 +89,5 @@ public class QuestionServiceImpl extends BaseService implements QuestionService 
 
         return new JsonResponse<>(Boolean.TRUE);
     }
+
 }

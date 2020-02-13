@@ -1,5 +1,6 @@
 package com.anercan.sorucevap.service.impl;
 
+import com.anercan.sorucevap.config.PropertyUtil;
 import com.anercan.sorucevap.dao.UserRepository;
 import com.anercan.sorucevap.dto.UserDto;
 import com.anercan.sorucevap.entity.User;
@@ -49,7 +50,7 @@ public class UserServiceImpl extends BaseService implements UserService {
             user.setDate(date);
             user.setMail(userDto.getMail());
             user.setPassword(userDto.getPassword());
-            user.setQuestionStatus(Integer.parseInt(env.getProperty("appconstant.question-status")));
+            user.setQuestionStatus(PropertyUtil.getIntegerValue("app.user.default.question.right",5));
             userRepository.save(user);
             logger.info("Yeni User oluşturuldu.User:{}", user);
 

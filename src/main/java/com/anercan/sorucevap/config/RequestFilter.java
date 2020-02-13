@@ -18,7 +18,6 @@ public class RequestFilter implements Filter {
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "*");
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Methods","GET, OPTIONS, HEAD, PUT, POST");
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Headers", "*");
-
         chain.doFilter(request, response);
     }
 

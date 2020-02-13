@@ -1,4 +1,4 @@
-package com.anercan.sorucevap.service;
+package com.anercan.sorucevap.constants;
 
 import java.util.*;
 

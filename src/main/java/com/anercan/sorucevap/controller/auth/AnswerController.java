@@ -18,7 +18,7 @@ public class AnswerController {
     AnswerService answerService;
 
     @GetMapping("id/{id}")
-    JsonResponse<Optional<Answer>> getByUserId(@PathVariable Long id) {
+    JsonResponse<Answer> getByUserId(@PathVariable Long id) {
         return answerService.getById(id);
     }
 

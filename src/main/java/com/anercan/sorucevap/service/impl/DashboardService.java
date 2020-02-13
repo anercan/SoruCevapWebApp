@@ -1,6 +1,5 @@
 package com.anercan.sorucevap.service.impl;
 
-import ch.qos.logback.core.rolling.helper.IntegerTokenConverter;
 import com.anercan.sorucevap.dao.AnswerRepository;
 import com.anercan.sorucevap.dao.CategoryRepository;
 import com.anercan.sorucevap.dao.QuestionRepository;
@@ -16,10 +15,8 @@ import com.anercan.sorucevap.enums.FilterStatus;
 import com.anercan.sorucevap.resource.CategoryResource;
 import com.anercan.sorucevap.resource.DashboardResource;
 import com.anercan.sorucevap.resource.JsonResponse;
-import com.anercan.sorucevap.service.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springfox.documentation.spring.web.json.Json;
 
 import java.sql.Date;
 import java.time.LocalDate;

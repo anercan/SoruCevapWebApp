@@ -37,4 +37,6 @@ insert into question_follower values (2,1);
 insert into question_follower values (3,1);
 insert into question_follower values (3,2);
 
+insert into properties values ('key','value');
+
 
