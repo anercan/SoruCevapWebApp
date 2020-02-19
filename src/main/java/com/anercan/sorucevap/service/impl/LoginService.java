@@ -26,12 +26,22 @@ public class LoginService extends BaseService {
             User user = userOpt.get();
             if (user.getPassword().equals(dto.getPassword())) {
                 Cookie cookie = new Cookie("token", SecurityConfig.createJWT(user.getId().toString()));
-                cookie.setMaxAge(PropertyUtil.getIntegerValue("app.login.cookie.max.age",3600)); //1 hour
+                cookie.setMaxAge(PropertyUtil.getIntegerValue("app.login.cookie.max.age", 3600)); //1 hour
                 response.addCookie(cookie);
+            } else {
+                return createFailResult(PropertyUtil.getStringValue("app.login.fail.text.password"));
             }
         } else {
-            return createFailResult();
+            return createFailResult(PropertyUtil.getStringValue("app.login.fail.text.usernotfound"));
         }
-        return null;
+        return createFailResult();
     }
-}
+
+    public JsonResponse<Boolean> logout(LoginDto dto, HttpServletResponse response) {
+        Cookie cookie = new Cookie("token", "");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return new JsonResponse(true);
+    }
+
+    }

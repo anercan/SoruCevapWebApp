@@ -11,7 +11,7 @@ import java.util.Date;
 public class SecurityConfig {
 
     public static String createJWT(String userId) {
-        long sessionTime = PropertyUtil.getLongValue("api.security.key", 1800000L);
+        long sessionTime = PropertyUtil.getLongValue("api.security.sessiontime", 1800000L);
         String subject = PropertyUtil.getStringValue("api.security.subject", "refresh");
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 

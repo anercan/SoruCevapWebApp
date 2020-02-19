@@ -31,4 +31,14 @@ public class BaseService {
         return response;
     }
 
+    protected JsonResponse createFailResult(String message) {
+        JsonResponse response = new JsonResponse();
+
+        response.setHttpStatus(HttpStatus.BAD_REQUEST);
+        response.setMessage(message);
+        response.setValue(Boolean.FALSE);
+
+        return response;
+    }
+
 }

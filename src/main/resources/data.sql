@@ -37,6 +37,6 @@ insert into question_follower values (2,1);
 insert into question_follower values (3,1);
 insert into question_follower values (3,2);
 
-insert into properties values ('key','value');
 
+insert into properties values ('app.login.fail.text.password',make_date(2019,12,20),'Kullanıcı Adı veya Şifre Yanlış.');
 
