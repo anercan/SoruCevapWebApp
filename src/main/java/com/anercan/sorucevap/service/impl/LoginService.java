@@ -20,7 +20,7 @@ public class LoginService extends BaseService {
     @Autowired
     UserRepository userRepository;
 
-    public JsonResponse<Boolean> checkLogin(LoginDto dto, HttpServletResponse response) {
+    public JsonResponse<Boolean> login(LoginDto dto, HttpServletResponse response) {
         Optional<User> userOpt = userRepository.findByUsername(dto.getUsername());
         if (userOpt.isPresent()) {
             User user = userOpt.get();
@@ -37,7 +37,7 @@ public class LoginService extends BaseService {
         return createFailResult();
     }
 
-    public JsonResponse<Boolean> logout(LoginDto dto, HttpServletResponse response) {
+    public JsonResponse<Boolean> logout(HttpServletResponse response) {
         Cookie cookie = new Cookie("token", "");
         cookie.setMaxAge(0);
         response.addCookie(cookie);

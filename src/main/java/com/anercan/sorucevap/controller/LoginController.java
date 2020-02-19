@@ -13,16 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
-@RequestMapping("/login")
 @RestController
 public class LoginController {
 
     @Autowired
     LoginService loginService;
 
-    @PostMapping
-    JsonResponse<Boolean> checkLogin(@RequestBody LoginDto loginDto, HttpServletResponse response) {
-        return loginService.checkLogin(loginDto,response);
+    @PostMapping("/login")
+    JsonResponse<Boolean> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
+        return loginService.login(loginDto,response);
+    }
+
+    @PostMapping("/logout")
+    JsonResponse<Boolean> logout( HttpServletResponse response) {
+        return loginService.logout(response);
     }
 
 }
