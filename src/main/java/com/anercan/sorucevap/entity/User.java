@@ -16,8 +16,7 @@ import java.util.List;
 public class User extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeq")
-    @SequenceGenerator(name = "userSeq", sequenceName = "USER_SEQUENCE")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Email(message = "Invalid Mail")

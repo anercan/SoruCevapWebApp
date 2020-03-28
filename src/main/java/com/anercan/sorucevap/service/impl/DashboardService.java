@@ -17,14 +17,12 @@ import com.anercan.sorucevap.resource.DashboardResource;
 import com.anercan.sorucevap.resource.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -132,6 +130,7 @@ public class DashboardService extends BaseService {
             );
 
         }
+        Collections.shuffle(resources);
         return new JsonResponse<>(resources);
     }
 }

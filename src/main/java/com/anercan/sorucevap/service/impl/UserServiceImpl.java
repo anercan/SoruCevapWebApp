@@ -22,7 +22,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         if (!userRepository.findByMail(mail).isPresent()) {
             createFailResult();
         }
-        logger.info("User mail ile getirildi.Mail:{}", mail);
+        logger.info("User get by mail.Mail:{}", mail);
         return new JsonResponse<>(userRepository.findByMail(mail));
     }
 
@@ -30,7 +30,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         if (!userRepository.findById(id).isPresent()) {
             createFailResult();
         }
-        logger.info("User idsiyle getirildi.Id:{}", id);
+        logger.info("User get by id.Id:{}", id);
         return new JsonResponse<>(userRepository.findById(id));
     }
 
@@ -39,7 +39,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         if (!userRepository.findByUsername(userName).isPresent()) {
             createFailResult();
         }
-        logger.info("Username ile getirildi.UserName:{}", userName);
+        logger.info("User getbyUsername.UserName:{}", userName);
         return new JsonResponse<>(userRepository.findByUsername(userName));
     }
 
@@ -60,12 +60,13 @@ public class UserServiceImpl extends BaseService implements UserService {
             user.setPassword(userDto.getPassword());
             user.setUsername(userDto.getUsername().toLowerCase());
             user.setQuestionStatus(PropertyUtil.getIntegerValue("app.user.default.question.right",5));
+            //todo event eklenecek
             userRepository.save(user);
-            logger.info("Yeni User oluşturuldu.User:{}", user);
+            logger.info("New User created:", user);
 
             return new JsonResponse(Boolean.TRUE);
         } catch (Exception e) {
-            logger.info("User oluşturulma başarısız.UserDto:{}", userDto);
+            logger.info("User oluşturulma başarısız.UserDto:{} -- stacktrace:{}", userDto,e.getMessage());
             return createFailResult();
         }
 

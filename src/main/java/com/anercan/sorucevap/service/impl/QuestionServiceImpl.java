@@ -6,7 +6,9 @@ import com.anercan.sorucevap.dao.UserRepository;
 import com.anercan.sorucevap.dto.QuestionDto;
 import com.anercan.sorucevap.entity.Question;
 import com.anercan.sorucevap.entity.User;
+import com.anercan.sorucevap.mapper.QuestionMapper;
 import com.anercan.sorucevap.resource.JsonResponse;
+import com.anercan.sorucevap.resource.QuestionResource;
 import com.anercan.sorucevap.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,14 +26,28 @@ public class QuestionServiceImpl extends BaseService implements QuestionService 
     UserRepository userRepository;
 
     @Override
-    public JsonResponse<Question> getById(Long id) {
+    public JsonResponse<QuestionResource> getByIdWithAnswers(Long id) {
         Optional<Question> questionOptional = questionRepository.findById(id);
+
+        if (questionOptional.isPresent()) {
+            QuestionResource questionResource  = QuestionMapper.mapQuestionWithAnswers(questionOptional.get());
+            logger.info("Soru id ile getirildi.id:{}", id);
+            return new JsonResponse(questionResource);
+        }
+        logger.info("Soru id bulunamadı.id:{}", id);
+        return createFailResult();
+    }
+
+    @Override
+    public JsonResponse<Question> getById(Long id) {
+      /*  Optional<Question> questionOptional = questionRepository.findById(id);
+        QuestionResource questionResource = new QuestionResource();
         if (questionOptional.isPresent()) {
             logger.info("Soru id ile getirildi.id:{}", id);
             return new JsonResponse(questionOptional.get());
         }
-        logger.info("Soru id bulunamadı.id:{}", id);
-        return createFailResult();
+        logger.info("Soru id bulunamadı.id:{}", id);*/
+        return null;
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.anercan.sorucevap.service.impl;
 
 import com.anercan.sorucevap.SorucevapApplication;
+import com.anercan.sorucevap.config.PropertyUtil;
+import com.anercan.sorucevap.entity.Property;
 import com.anercan.sorucevap.resource.JsonResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +27,7 @@ public class BaseService {
         JsonResponse response = new JsonResponse();
 
         response.setHttpStatus(HttpStatus.BAD_REQUEST);
-        response.setMessage("Fail Result");
+        response.setMessage(PropertyUtil.getStringValue("app.text.unknown.error","Bilinmeyen Hata"));
         response.setValue(Boolean.FALSE);
 
         return response;
