@@ -12,6 +12,8 @@ public class AnswerMapper {
         answerResource.setDislikeCount(answer.getDislikeCount());
         answerResource.setLikeCount(answer.getLikeCount());
         answerResource.setUserName(answer.getUser().getUsername());
+        answerResource.setVerified(answer.isVerified());
+        answerResource.setDate(answer.getDate());
 
         return answerResource;
     }

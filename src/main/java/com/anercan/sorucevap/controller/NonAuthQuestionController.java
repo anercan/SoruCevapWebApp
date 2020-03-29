@@ -20,8 +20,10 @@ public class NonAuthQuestionController {
     @Autowired
     QuestionService questionService;
 
-    @GetMapping("id/{id}")
-    JsonResponse<QuestionResource> getByUserId(@PathVariable Long id) {
+    //todo verified olmayanalrın 1 ay sonra silinnmesi
+    //todo cevaplar için pagenation
+    @GetMapping("getById/{id}")
+    JsonResponse<QuestionResource> getByQuestionId(@PathVariable Long id) {
         return questionService.getByIdWithAnswers(id);
     }
 }

@@ -2,8 +2,10 @@ package com.anercan.sorucevap.resource;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
-public class AnswerResource {
+public class AnswerResource implements Comparable<AnswerResource> {
 
     private String content;
 
@@ -13,5 +15,14 @@ public class AnswerResource {
 
     private String userName;
 
-    private String userId;
+    private boolean isVerified;
+
+    private Date date;
+
+    @Override
+    public int compareTo(AnswerResource o) {
+        if (getDate() == null || o.getDate() == null)
+            return 0;
+        return getDate().compareTo(o.getDate());
+    }
 }
