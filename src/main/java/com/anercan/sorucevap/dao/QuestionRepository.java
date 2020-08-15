@@ -14,5 +14,4 @@ public interface QuestionRepository extends BaseRepository<Question, Long> {
     int getNumberByCategory(Long id);
 
 
-
 }

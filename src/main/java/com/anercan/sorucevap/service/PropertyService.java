@@ -1,12 +1,11 @@
-package com.anercan.sorucevap.service.impl;
+package com.anercan.sorucevap.service;
 
 import com.anercan.sorucevap.config.PropertyUtil;
 import com.anercan.sorucevap.dao.PropertyRepository;
 import com.anercan.sorucevap.entity.Property;
-import com.anercan.sorucevap.resource.JsonResponse;
+import com.anercan.sorucevap.resource.ServiceResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import springfox.documentation.spring.web.json.Json;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -27,14 +26,14 @@ public class PropertyService extends BaseService {
         }
     }
 
-    public JsonResponse<Boolean> refresh() {
+    public ServiceResult<Boolean> refresh() {
         List<Property> propertyList = propertyRepository.findAll();
         if (!propertyList.isEmpty()) {
             propertyList.stream().forEach(property -> PropertyUtil.addProperty(property.getKey(), property.getValue()));
         } else {
-            return createFailResult("List is Empty");
+            return createFailResult();
         }
-        return  new JsonResponse<>(Boolean.TRUE);
+        return createServiceResult(Boolean.TRUE);
     }
 
 }

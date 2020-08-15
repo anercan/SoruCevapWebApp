@@ -5,7 +5,7 @@ import com.anercan.sorucevap.resource.AnswerResource;
 
 public class AnswerMapper {
 
-    public static AnswerResource mapAnswer(Answer answer){
+    public static AnswerResource mapAnswer(Answer answer) {
         AnswerResource answerResource = new AnswerResource();
 
         answerResource.setContent(answer.getContent());
@@ -13,7 +13,7 @@ public class AnswerMapper {
         answerResource.setLikeCount(answer.getLikeCount());
         answerResource.setUserName(answer.getUser().getUsername());
         answerResource.setVerified(answer.isVerified());
-        answerResource.setDate(answer.getDate());
+        answerResource.setDate(answer.getCreated_date());
 
         return answerResource;
     }

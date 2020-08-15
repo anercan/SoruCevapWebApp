@@ -1,11 +1,12 @@
 package com.anercan.sorucevap.config;
 
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
-
-import io.jsonwebtoken.*;
-
 import java.util.Date;
 
 public class SecurityConfig {
@@ -36,8 +37,8 @@ public class SecurityConfig {
         //This line will throw an exception if it is not a signed JWS (as expected)
         try {
             Jwts.parser()
-                .setSigningKey(DatatypeConverter.parseBase64Binary(PropertyUtil.getStringValue("api.security.key", "SoruCevapWebApp")))
-                .parseClaimsJws(jwt).getBody();
+                    .setSigningKey(DatatypeConverter.parseBase64Binary(PropertyUtil.getStringValue("api.security.key", "SoruCevapWebApp")))
+                    .parseClaimsJws(jwt).getBody();
             return true;
         } catch (Exception e) {
             return false;

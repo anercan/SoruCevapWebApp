@@ -36,7 +36,7 @@ public class PropertyUtil {
         properties.put(key.toLowerCase(), val);
     }
 
-    public static Boolean isEmpty(){
+    public static Boolean isEmpty() {
         return properties.isEmpty();
     }
 

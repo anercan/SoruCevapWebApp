@@ -11,6 +11,7 @@ public class QuestionResource {
 
     String title;
     String content;
+    String userName;
     List<AnswerResource> answerResourceList = new ArrayList<>();
     Date date;
 }

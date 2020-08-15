@@ -1,4 +1,4 @@
-package com.anercan.sorucevap.service.impl;
+package com.anercan.sorucevap.service;
 
 
 import com.anercan.sorucevap.config.PropertyUtil;
@@ -6,7 +6,7 @@ import com.anercan.sorucevap.config.SecurityConfig;
 import com.anercan.sorucevap.dao.UserRepository;
 import com.anercan.sorucevap.dto.UserDto;
 import com.anercan.sorucevap.entity.User;
-import com.anercan.sorucevap.resource.JsonResponse;
+import com.anercan.sorucevap.resource.ServiceResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class LoginService extends BaseService {
     @Autowired
     UserRepository userRepository;
 
-    public JsonResponse<UserDto> login(UserDto dto, HttpServletResponse response) {
+    public ServiceResult<UserDto> login(UserDto dto, HttpServletResponse response) {
         UserDto userResponse = new UserDto();
         Optional<User> userOpt = userRepository.findByUsername(dto.getUsername());
         if (userOpt.isPresent()) {
@@ -34,33 +34,30 @@ public class LoginService extends BaseService {
                 userResponse.setId(user.getId());
                 userResponse.setUsername(user.getUsername());
             } else {
-                return createFailResult(PropertyUtil.getStringValue("app.login.fail.text.password"));
+                return createFailResult(); //PropertyUtil.getStringValue("app.login.fail.text.password")
             }
         } else {
-            return createFailResult(PropertyUtil.getStringValue("app.login.fail.text.usernotfound"));
+            return createFailResult(); //PropertyUtil.getStringValue("app.login.fail.text.password")
         }
-        return new JsonResponse<>(userResponse);
+        return createServiceResult(userResponse);
     }
 
-    public boolean isLogin(HttpServletRequest request){
-       Cookie token = Arrays.stream(((HttpServletRequest) request).getCookies()).
+    public boolean isLogin(HttpServletRequest request) {
+        Cookie token = Arrays.stream(request.getCookies()).
                 filter(cookie -> cookie.getName().equals("token")).findFirst().orElse(null);
-        if (token != null && SecurityConfig.checkJWT(token.getValue())) {
-           return true;
-        }
-        return false;
+        return token != null && SecurityConfig.checkJWT(token.getValue());
     }
 
-    public JsonResponse<Boolean> logout(UserDto userDto, HttpServletResponse response) {
-            try {
-                Cookie cookie = new Cookie("token", "");
-                cookie.setMaxAge(0);
-                response.addCookie(cookie);
-                return new JsonResponse(true);
-            } catch (Exception e) {
-                logger.info("Logout error:user{} stackTrace:{}", userDto.getId(), e.getMessage());
-                return new JsonResponse(true);
-            }
+    public ServiceResult<Boolean> logout(UserDto userDto, HttpServletResponse response) {
+        try {
+            Cookie cookie = new Cookie("token", "");
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+            return createServiceResult(Boolean.TRUE);
+        } catch (Exception e) {
+            log.info("Logout error:user{} stackTrace:{}", userDto.getId(), e.getMessage());
+            return createServiceResult(Boolean.TRUE);
+        }
     }
 
 }

@@ -7,16 +7,16 @@ import org.springframework.http.HttpStatus;
 public class JsonResponse<T> {
 
     HttpStatus httpStatus = HttpStatus.OK;
-    String message = "Success";
+    String message;
     T value;
 
     public JsonResponse() {
     }
 
     public JsonResponse(T value) {
-        if(value == null){
+        if (value == null) {
             this.httpStatus = HttpStatus.BAD_REQUEST;
-        }else{
+        } else {
             this.value = value;
         }
     }
@@ -26,9 +26,14 @@ public class JsonResponse<T> {
         this.httpStatus = code;
     }
 
+    public JsonResponse(T value, HttpStatus code, String message) {
+        this.value = value;
+        this.httpStatus = code;
+        this.message = message;
+    }
+
     public JsonResponse(T value, String message) {
         this.value = value;
         this.message = message;
     }
-
 }

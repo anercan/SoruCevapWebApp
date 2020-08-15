@@ -1,4 +1,4 @@
-package com.anercan.sorucevap.service.impl;
+package com.anercan.sorucevap.service;
 
 import com.anercan.sorucevap.dao.AnswerRepository;
 import com.anercan.sorucevap.dao.CategoryRepository;
@@ -14,10 +14,9 @@ import com.anercan.sorucevap.entity.Question;
 import com.anercan.sorucevap.enums.FilterStatus;
 import com.anercan.sorucevap.resource.CategoryResource;
 import com.anercan.sorucevap.resource.DashboardResource;
-import com.anercan.sorucevap.resource.JsonResponse;
+import com.anercan.sorucevap.resource.ServiceResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -44,7 +43,7 @@ public class DashboardService extends BaseService {
     AnswerRepository answerRepository;
 
 
-    public JsonResponse<DashboardResource> getQuestionCount(DashboardDto dto) {
+    public ServiceResult<DashboardResource> getQuestionCount(DashboardDto dto) {
         QuestionFilterDto questionFilterDtoCurrent = new QuestionFilterDto();
         QuestionFilterDto questionFilterDtoPrevious = new QuestionFilterDto();
         DashboardResource resource = new DashboardResource();
@@ -69,11 +68,11 @@ public class DashboardService extends BaseService {
         resource.setCurrentData(questionListCurrent.size() + "");
         resource.setPreviousData(questionListPrevious.size() + "");
 
-        return new JsonResponse<>(resource);
+        return createServiceResult(resource);
     }
 
 
-    public JsonResponse<DashboardResource> getAnswerCount(DashboardDto dto) {
+    public ServiceResult<DashboardResource> getAnswerCount(DashboardDto dto) {
 
         AnswerFilterDto answerFilterDtoCurrent = new AnswerFilterDto();
         AnswerFilterDto answerFilterDtoPrevious = new AnswerFilterDto();
@@ -99,10 +98,10 @@ public class DashboardService extends BaseService {
         resource.setCurrentData(answerListCurrent.size() + "");
         resource.setPreviousData(answerListPrevious.size() + "");
 
-        return new JsonResponse<>(resource);
+        return createServiceResult(resource);
     }
 
-    public JsonResponse<List<CategoryResource>> getCategories(int numberOfCategory) {
+    public ServiceResult<List<CategoryResource>> getCategories(int numberOfCategory) {
         HashMap<Long, Integer> categoryMap = new HashMap<>();
         List<CategoryResource> resources = new ArrayList<>();
 
@@ -131,6 +130,6 @@ public class DashboardService extends BaseService {
 
         }
         Collections.shuffle(resources);
-        return new JsonResponse<>(resources);
+        return createServiceResult(resources);
     }
 }

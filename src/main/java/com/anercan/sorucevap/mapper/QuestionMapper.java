@@ -4,7 +4,6 @@ import com.anercan.sorucevap.entity.Answer;
 import com.anercan.sorucevap.entity.Question;
 import com.anercan.sorucevap.resource.AnswerResource;
 import com.anercan.sorucevap.resource.QuestionResource;
-import org.hibernate.mapping.Collection;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,13 +13,14 @@ import java.util.stream.Collectors;
 
 public class QuestionMapper {
 
-    public static QuestionResource mapQuestionWithAnswers(Question question){
+    public static QuestionResource mapQuestionWithAnswers(Question question) {
         QuestionResource questionResource = new QuestionResource();
         List<AnswerResource> answerResourceList = new ArrayList<>();
         questionResource.setTitle(question.getTitle());
+        questionResource.setUserName(question.getUser().getUsername());
         questionResource.setContent(question.getContent());
-        questionResource.setDate(question.getDate());
-        for(Answer answer:question.getAnswer()){
+        questionResource.setDate(question.getCreated_date());
+        for (Answer answer : question.getAnswer()) {
             AnswerResource answerResource = AnswerMapper.mapAnswer(answer);
             answerResourceList.add(answerResource);
         }

@@ -9,6 +9,7 @@ import java.util.Date;
 @Data
 public class BaseEntity {
 
-    private Date date = new Date();
+    private Date created_date;
+    private Date modified_date;
 
 }

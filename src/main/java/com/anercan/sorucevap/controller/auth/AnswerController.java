@@ -8,23 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
-@RestController
 @RequestMapping("/auth/answer")
-public class AnswerController {
+public class AnswerController extends BaseController {
 
     @Autowired
     AnswerService answerService;
 
     @GetMapping("id/{id}")
-    JsonResponse<Answer> getByUserId(@PathVariable Long id) {
-        return answerService.getById(id);
+    JsonResponse<Answer> getById(@PathVariable Long id) {
+        return createJsonResponse(answerService.getById(id));
     }
 
     @PostMapping
     JsonResponse<Boolean> createAnswer(@RequestBody AnswerDto answerDto) {
-        return answerService.createAnswer(answerDto);
+        return createJsonResponse(answerService.createAnswer(answerDto));
     }
 
     @PostMapping("/delete")
@@ -44,6 +42,6 @@ public class AnswerController {
   */
     @GetMapping("question/{id}")
     JsonResponse<List<Answer>> getAnswersByQuestionId(@PathVariable Long id) {
-        return answerService.getAnswersByQuestionId(id);
+        return createJsonResponse(answerService.getAnswersByQuestionId(id));
     }
 }
