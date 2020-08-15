@@ -1,10 +1,9 @@
 package com.anercan.sorucevap.controller.auth;
 
-import com.anercan.sorucevap.resource.JsonResponse;
-import com.anercan.sorucevap.resource.ServiceResult;
+import com.anercan.sorucevap.client.resource.JsonResponse;
+import com.anercan.sorucevap.client.resource.ServiceResult;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
 public abstract class BaseController {
 
     protected JsonResponse createJsonResponse(ServiceResult response) {

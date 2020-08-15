@@ -1,47 +1,47 @@
 insert into users
-values (1, current_date, true, 'anercan@mail.com', '12345678', 5, 'anercan');
+values (1, current_date,NULL, true, 'anercan@mail.com', '12345678', 5, 'anercan');
 insert into users
-values (2, current_date, true, 'test1@mail.com', '12345678', 5, 'test1');
+values (2, current_date,NULL, true, 'test1@mail.com', '12345678', 5, 'test1');
 insert into users
-values (3, current_date, true, 'test2@mail.com', '12345678', 5, 'test2');
+values (3, current_date,NULL, true, 'test2@mail.com', '12345678', 5, 'test2');
 
 insert into questions
-values (1, make_date(2020, 2, 25), 'Consectetur adipiscing elit ? ',
+values (1, make_date(2020, 2, 25),make_date(2020, 2, 25), 'Consectetur adipiscing elit ? ',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit', 1);
 insert into questions
-values (2, make_date(2020, 2, 26), 'Consectetur adipiscing elit ? ',
+values (2, make_date(2020, 2, 25), make_date(2020, 2, 25), 'Consectetur adipiscing elit ? ',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit', 1);
 insert into questions
-values (3, make_date(2020, 2, 27), 'Consectetur adipiscing elit ? ',
+values (3, make_date(2020, 2, 27),NULL, 'Consectetur adipiscing elit ? ',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit', 2);
 insert into questions
-values (4, make_date(2020, 1, 19), 'Consectetur adipiscing elit ? ',
+values (4, make_date(2020, 1, 19),NULL, 'Consectetur adipiscing elit ? ',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit', 3);
 insert into questions
-values (5, make_date(2020, 3, 20), 'Consectetur adipiscing elit ? ',
+values (5, make_date(2020, 3, 20),NULL, 'Consectetur adipiscing elit ? ',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit', 3);
 insert into questions
-values (6, make_date(2020, 3, 22), 'Consectetur adipiscing elit ? ',
+values (6, make_date(2020, 3, 22),NULL, 'Consectetur adipiscing elit ? ',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit', 3);
 insert into questions
-values (7, make_date(2020, 3, 22), 'Consectetur adipiscing elit ? ',
+values (7, make_date(2020, 3, 22),NULL, 'Consectetur adipiscing elit ? ',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit', 3);
 #saat eklencek
 insert into questions
-values (10, make_date(2020, 4, 11), 'Consectetur adipiscing elit ? ',
+values (10, make_date(2020, 4, 11),NULL, 'Consectetur adipiscing elit ? ',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit', 3);
 
 
 insert into answers
-values (1, make_date(2020, 3, 21), 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ', 10, 15, false, 1, 1);
+values (1, make_date(2020, 3, 21),NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ', 10, 15, false, 1, 1);
 insert into answers
-values (2, make_date(2020, 3, 20), 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ', 12, 1, true, 1, 1);
+values (2, make_date(2020, 3, 20),NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ', 12, 1, true, 1, 1);
 insert into answers
-values (3, make_date(2020, 2, 23), 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ', 10, 15, false, 1, 2);
+values (3, make_date(2020, 2, 23),NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ', 10, 15, false, 1, 2);
 insert into answers
-values (4, make_date(2020, 3, 22), 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ', 152, 15, false, 2, 1);
+values (4, make_date(2020, 3, 22),NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ', 152, 15, false, 2, 1);
 insert into answers
-values (5, make_date(2020, 2, 25), 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ', 10, 8, false, 2, 3);
+values (5, make_date(2020, 2, 25),NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ', 10, 8, false, 2, 3);
 
 insert into categories
 values (1, 'Müzik');
@@ -80,7 +80,7 @@ values (3, 2);
 
 
 insert into properties
-values ('app.login.fail.text.password', make_date(2019, 12, 20), 'Kullanıcı Adı veya Şifre Yanlış.');
+values ('app.login.fail.text.password', make_date(2019, 12, 20),NULL, 'Kullanıcı Adı veya Şifre Yanlış.');
 
 insert into properties
-values ('app.user.default.question.right', make_date(2019, 12, 20), '5');
+values ('app.user.default.question.right', make_date(2019, 12, 20),NULL, '5');

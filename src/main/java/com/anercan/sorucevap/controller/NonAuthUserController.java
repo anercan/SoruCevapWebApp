@@ -1,9 +1,9 @@
 package com.anercan.sorucevap.controller;
 
 import com.anercan.sorucevap.controller.auth.BaseController;
-import com.anercan.sorucevap.dto.UserDto;
+import com.anercan.sorucevap.client.dto.UserDto;
 import com.anercan.sorucevap.entity.User;
-import com.anercan.sorucevap.resource.JsonResponse;
+import com.anercan.sorucevap.client.resource.JsonResponse;
 import com.anercan.sorucevap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

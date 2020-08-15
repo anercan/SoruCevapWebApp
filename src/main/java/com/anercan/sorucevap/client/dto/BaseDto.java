@@ -1,4 +1,4 @@
-package com.anercan.sorucevap.dto;
+package com.anercan.sorucevap.client.dto;
 
 import lombok.Data;
 

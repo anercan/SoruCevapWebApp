@@ -1,4 +1,4 @@
-package com.anercan.sorucevap.resource;
+package com.anercan.sorucevap.client.resource;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;
@@ -47,7 +47,7 @@ public class ServiceResult<T> {
 
 
     public Boolean isSuccess() {
-        return status.is2xxSuccessful();
+        return status.is1xxInformational() || status.is2xxSuccessful();
     }
 
 }

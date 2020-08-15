@@ -1,9 +1,9 @@
-package com.anercan.sorucevap.mapper;
+package com.anercan.sorucevap.client.mapper;
 
 import com.anercan.sorucevap.entity.Answer;
 import com.anercan.sorucevap.entity.Question;
-import com.anercan.sorucevap.resource.AnswerResource;
-import com.anercan.sorucevap.resource.QuestionResource;
+import com.anercan.sorucevap.client.resource.AnswerResource;
+import com.anercan.sorucevap.client.resource.QuestionResource;
 
 import java.util.ArrayList;
 import java.util.Collections;

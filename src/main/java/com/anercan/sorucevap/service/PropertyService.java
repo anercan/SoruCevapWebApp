@@ -3,7 +3,7 @@ package com.anercan.sorucevap.service;
 import com.anercan.sorucevap.config.PropertyUtil;
 import com.anercan.sorucevap.dao.PropertyRepository;
 import com.anercan.sorucevap.entity.Property;
-import com.anercan.sorucevap.resource.ServiceResult;
+import com.anercan.sorucevap.client.resource.ServiceResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

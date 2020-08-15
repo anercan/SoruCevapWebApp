@@ -1,14 +1,15 @@
 package com.anercan.sorucevap.controller.auth;
 
-import com.anercan.sorucevap.dto.AnswerDto;
+import com.anercan.sorucevap.client.dto.AnswerDto;
 import com.anercan.sorucevap.entity.Answer;
-import com.anercan.sorucevap.resource.JsonResponse;
+import com.anercan.sorucevap.client.resource.JsonResponse;
 import com.anercan.sorucevap.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
 @RequestMapping("/auth/answer")
 public class AnswerController extends BaseController {
 

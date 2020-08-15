@@ -1,4 +1,4 @@
-package com.anercan.sorucevap.resource;
+package com.anercan.sorucevap.client.resource;
 
 import lombok.Data;
 

@@ -2,7 +2,7 @@ package com.anercan.sorucevap.service;
 
 import com.anercan.sorucevap.dao.BaseRepository;
 import com.anercan.sorucevap.entity.BaseEntity;
-import com.anercan.sorucevap.resource.ServiceResult;
+import com.anercan.sorucevap.client.resource.ServiceResult;
 
 import java.util.Date;
 import java.util.Optional;
@@ -27,13 +27,12 @@ public abstract class AbstractEntityService<Entity extends BaseEntity> extends B
         return createServiceResult(response);
     }
 
-    Entity preSave(Entity entity) {
+    void preSave(Entity entity) {
         if (entity.getCreated_date() == null) {
             entity.setCreated_date(new Date());
         } else {
             entity.setModified_date(new Date());
         }
-        return entity;
     }
 
 }

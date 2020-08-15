@@ -1,6 +1,6 @@
 package com.anercan.sorucevap.dao.query;
 
-import com.anercan.sorucevap.dto.AnswerFilterDto;
+import com.anercan.sorucevap.client.dto.AnswerFilterDto;
 import com.anercan.sorucevap.entity.Answer;
 import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.data.jpa.domain.Specification;

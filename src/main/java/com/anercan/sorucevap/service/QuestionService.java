@@ -3,12 +3,12 @@ package com.anercan.sorucevap.service;
 import com.anercan.sorucevap.dao.BaseRepository;
 import com.anercan.sorucevap.dao.QuestionRepository;
 import com.anercan.sorucevap.dao.UserRepository;
-import com.anercan.sorucevap.dto.QuestionDto;
+import com.anercan.sorucevap.client.dto.QuestionDto;
 import com.anercan.sorucevap.entity.Question;
 import com.anercan.sorucevap.entity.User;
-import com.anercan.sorucevap.mapper.QuestionMapper;
-import com.anercan.sorucevap.resource.QuestionResource;
-import com.anercan.sorucevap.resource.ServiceResult;
+import com.anercan.sorucevap.client.mapper.QuestionMapper;
+import com.anercan.sorucevap.client.resource.QuestionResource;
+import com.anercan.sorucevap.client.resource.ServiceResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,6 @@
 package com.anercan.sorucevap.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -42,6 +43,7 @@ public class Question extends BaseEntity {
     )
     private List<Category> categories;
 
+    @JsonManagedReference
     @ManyToMany(mappedBy = "questionFollow")
     private List<User> usersWhoFollow;
 

@@ -1,7 +1,7 @@
 package com.anercan.sorucevap.service;
 
 import com.anercan.sorucevap.SorucevapApplication;
-import com.anercan.sorucevap.resource.ServiceResult;
+import com.anercan.sorucevap.client.resource.ServiceResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,8 @@
 package com.anercan.sorucevap.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -26,6 +28,7 @@ public class User extends BaseEntity {
     @Size(min = 5, max = 15, message = "Invalid UserName Size")
     private String username;
 
+    @JsonIgnore
     @Pattern(regexp = "([a-zA-Z0-9]+\\S)", message = "Invalid pwd")
     @Size(min = 8, max = 30, message = "Invalid pwd size")
     private String password;
@@ -42,6 +45,7 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     private List<Answer> answerList;
 
+    @JsonBackReference
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "Question_Follower",
