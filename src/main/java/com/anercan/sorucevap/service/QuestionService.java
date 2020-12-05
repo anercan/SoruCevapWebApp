@@ -1,5 +1,6 @@
 package com.anercan.sorucevap.service;
 
+import com.anercan.sorucevap.config.PropertyUtil;
 import com.anercan.sorucevap.dao.BaseRepository;
 import com.anercan.sorucevap.dao.QuestionRepository;
 import com.anercan.sorucevap.dao.UserRepository;
@@ -47,11 +48,12 @@ public class QuestionService extends AbstractEntityService {
     }
 
     public ServiceResult<Boolean> createQuestion(QuestionDto questionDto) {
-        User user = userRepository.findById(questionDto.getUserDto().getId()).get(); //question ve answer olusturuldugunda event fırlat boylece soruya cevap geldiginde mail atma islemi yap
+        User user = userRepository.findById(questionDto.getUserDto().getId()).get();
         if (user != null && user.getQuestionStatus() > 0) {
             Question question = new Question();
             question.setUser(user);
             question.setTitle(questionDto.getTitle());
+            //todo categorisini setle belki uygulama kalkarken categoriler static mape alınabilir
             question.setContent(questionDto.getContent());
             user.setQuestionStatus(user.getQuestionStatus() - 1);
             log.info("Soru oluşturuldu.Soru:{}", question);
@@ -65,9 +67,9 @@ public class QuestionService extends AbstractEntityService {
 
     public ServiceResult<Boolean> deleteQuestion(QuestionDto questionDto) {
         Question question = questionRepository.findById(questionDto.getId()).get();
-        if (question.getAnswer().size() > 50) {
+        if (question.getAnswer().size() > PropertyUtil.getIntegerValue("app.common.deleteQuestion.answerLimit",10)) {
             log.info("Soru silinme talebi oluşturuldu.Soru:{}", question); //todo talep
-            return createFailResult();
+            return createServiceResult(Boolean.TRUE,PropertyUtil.getClientProp("text.delete.request"));
         }
         log.info("Soru silindi.Soru:{}", question);
         questionRepository.delete(question);

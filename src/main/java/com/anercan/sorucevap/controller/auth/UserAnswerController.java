@@ -1,25 +1,18 @@
 package com.anercan.sorucevap.controller.auth;
 
 import com.anercan.sorucevap.client.dto.AnswerDto;
-import com.anercan.sorucevap.entity.Answer;
+import com.anercan.sorucevap.controller.BaseController;
 import com.anercan.sorucevap.client.resource.JsonResponse;
 import com.anercan.sorucevap.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/auth/answer")
-public class AnswerController extends BaseController {
+@RequestMapping("/user-answer")
+public class UserAnswerController extends BaseController {
 
     @Autowired
     AnswerService answerService;
-
-    @GetMapping("id/{id}")
-    JsonResponse<Answer> getById(@PathVariable Long id) {
-        return createJsonResponse(answerService.getById(id));
-    }
 
     @PostMapping
     JsonResponse<Boolean> createAnswer(@RequestBody AnswerDto answerDto) {
@@ -41,8 +34,4 @@ public class AnswerController extends BaseController {
           return answerService.dislikeAnswer(id);
       }
   */
-    @GetMapping("question/{id}")
-    JsonResponse<List<Answer>> getAnswersByQuestionId(@PathVariable Long id) {
-        return createJsonResponse(answerService.getAnswersByQuestionId(id));
-    }
 }

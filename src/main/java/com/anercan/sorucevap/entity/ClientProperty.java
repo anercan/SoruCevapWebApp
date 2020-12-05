@@ -8,12 +8,14 @@ import javax.persistence.Table;
 
 @Entity
 @Data
-@Table(name = "PROPERTIES")
-public class Property extends BaseEntity {
+@Table(name = "CLIENT_TEXTS")
+public class ClientProperty extends BaseEntity {
 
     @Id
     String key;
 
-    String value;
+    String trValue;
+
+    String engValue;
 
 }

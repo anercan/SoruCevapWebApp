@@ -79,8 +79,6 @@ insert into question_follower
 values (3, 2);
 
 
-insert into properties
-values ('app.login.fail.text.password', make_date(2019, 12, 20),NULL, 'Kullanıcı Adı veya Şifre Yanlış.');
 
 insert into properties
 values ('app.user.default.question.right', make_date(2019, 12, 20),NULL, '5');

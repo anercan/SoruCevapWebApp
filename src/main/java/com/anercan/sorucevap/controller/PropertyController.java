@@ -1,4 +1,4 @@
-package com.anercan.sorucevap.controller.auth;
+package com.anercan.sorucevap.controller;
 
 import com.anercan.sorucevap.client.resource.JsonResponse;
 import com.anercan.sorucevap.service.PropertyService;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth/property")
+@RequestMapping("/property")
 public class PropertyController extends BaseController {
 
     @Autowired

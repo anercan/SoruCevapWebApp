@@ -1,5 +1,6 @@
 package com.anercan.sorucevap.entity;
 
+import com.anercan.sorucevap.enums.QuestionStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
@@ -13,27 +14,26 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "QUESTIONS")
-public class Question extends BaseEntity {
+public class Question extends CommonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "QuestionSeq")
     @SequenceGenerator(name = "QuestionSeq", sequenceName = "QUESTION_SEQ")
     private Long id;
 
-    @Size(min = 5, max = 100, message = "Title size limit does not reach requirements")
+    @Size(min = 5, max = 100)
     @NotNull
     private String title;
 
-    @Size(min = 5, max = 250, message = "Content size limit does not reach requirements")
+    @Size(min = 5, max = 250)
     @NotNull
     private String content;
 
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    //private Reports reports //todo report question
+    private QuestionStatus status;
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
@@ -48,8 +48,10 @@ public class Question extends BaseEntity {
     private List<User> usersWhoFollow;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "question")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "question")
     private List<Answer> answer = new ArrayList<>();
+
+    //private Reports reports //todo report question // statics ?
 
     @Override
     public String toString() {

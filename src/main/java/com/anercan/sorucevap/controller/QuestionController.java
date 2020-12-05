@@ -1,6 +1,5 @@
 package com.anercan.sorucevap.controller;
 
-import com.anercan.sorucevap.controller.auth.BaseController;
 import com.anercan.sorucevap.client.resource.JsonResponse;
 import com.anercan.sorucevap.client.resource.QuestionResource;
 import com.anercan.sorucevap.service.LoginService;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping(value = "/question")
 @RestController
-public class NonAuthQuestionController extends BaseController {
+public class QuestionController extends BaseController {
 
     @Autowired
     LoginService loginService;

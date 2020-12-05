@@ -23,7 +23,7 @@ public class SessionFilter implements Filter {
         if (/*path.contains("auth")*/false) {
             Cookie token = Arrays.stream(((HttpServletRequest) request).getCookies()).
                     filter(cookie -> cookie.getName().equals("token")).findFirst().orElse(null);
-            if (token != null && SecurityConfig.checkJWT(token.getValue())) {
+            if (token != null && JwtUtil.checkJWT(token.getValue())) {
                 chain.doFilter(request, response);
             } else {
                 ((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "The token is not valid.");

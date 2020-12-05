@@ -41,7 +41,7 @@ public class AnswerService extends AbstractEntityService<Answer> {
         if(question.isPresent()){
             new JsonResponse<>().setCode(-1);
         }*/
-        Answer answer = new Answer();
+        Answer answer = new Answer(); // spam controlu 5 dk 1 aswer girebilme aynı answerdan girememe - event atılıp soru cevaplandıgına dair mail
         User owner = userRepository.findById(answerDto.getUserDto().getId()).get(); //id yı tokendan al
         Question question = questionRepository.findById(answerDto.getQuestionDto().getId()).get();
         answer.setQuestion(question);
@@ -54,7 +54,7 @@ public class AnswerService extends AbstractEntityService<Answer> {
 
 
     public ServiceResult<Boolean> deleteAnswer(AnswerDto answerDto) {
-        Optional<Answer> answer = answerRepository.findById(answerDto.getId());
+        /*Optional<Answer> answer = answerRepository.findById(answerDto.getId()); // pasife cekme olabilir
         if (!answer.isPresent() || answer.get().getQuestion() == null) {
             return createFailResult();
         }
@@ -63,13 +63,13 @@ public class AnswerService extends AbstractEntityService<Answer> {
             owner.get().setQuestionStatus(owner.get().getQuestionStatus() - 1);
         }
         answerRepository.delete(answer.get());
-        log.info("Cevap silindi.id:{}", answer);
+        log.info("Cevap silindi.id:{}", answer);*/
         return createServiceResult(Boolean.TRUE);
     }
 
 
     public ServiceResult<Boolean> likeAnswer(Long id) {
-      /*  if(answerRepository.findById(id).isPresent()){
+      /*  if(answerRepository.findById(id).isPresent()){ // status save edip event atılacak
             Answer answer = answerRepository.findById(id).get();
             answer.setLikeCount(answer.getLikeCount()+1);
 
@@ -93,7 +93,7 @@ public class AnswerService extends AbstractEntityService<Answer> {
 
     public ServiceResult<Boolean> dislikeAnswer(Long id) {
         Answer answer = answerRepository.findById(id).get();
-     /*   User user = userRepository.findById(answer.getUser().getId()).get();
+     /*   User user = userRepository.findById(answer.getUser().getId()).get(); // status save edilecek
 
         answer.setDislikeCount(answer.getDislikeCount()+1);
         if(answer.isVerified()){

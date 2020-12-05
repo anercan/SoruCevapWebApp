@@ -1,9 +1,10 @@
 package com.anercan.sorucevap.controller;
 
-import com.anercan.sorucevap.controller.auth.BaseController;
+import com.anercan.sorucevap.client.dto.CreateUserDto;
 import com.anercan.sorucevap.client.dto.UserDto;
 import com.anercan.sorucevap.client.resource.JsonResponse;
 import com.anercan.sorucevap.service.LoginService;
+import com.anercan.sorucevap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,14 +19,22 @@ public class LoginController extends BaseController {
     @Autowired
     LoginService loginService;
 
+    @Autowired
+    UserService userService;
+
     @PostMapping("/logout")
     JsonResponse<Boolean> logout(UserDto userDto, HttpServletResponse response) {
         return createJsonResponse(loginService.logout(userDto, response));
     }
 
-    @PostMapping("/login")
-    JsonResponse<UserDto> login(@RequestBody UserDto userDto, HttpServletResponse response) {
-        return createJsonResponse(loginService.login(userDto, response));
+    @PostMapping("/user-login")
+    JsonResponse<UserDto> login(@RequestBody UserDto userDto) {
+        return createJsonResponse(loginService.login(userDto));
+    }
+
+    @PostMapping("/sign-up")
+    JsonResponse<Boolean> createUser(@RequestBody CreateUserDto userDto) {
+        return createJsonResponse(userService.createUser(userDto));
     }
 
 

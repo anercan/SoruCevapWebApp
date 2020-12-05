@@ -1,5 +1,6 @@
 package com.anercan.sorucevap.entity;
 
+import com.anercan.sorucevap.enums.AnswerStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
@@ -10,7 +11,7 @@ import javax.validation.constraints.Size;
 @Data
 @Entity
 @Table(name = "ANSWERS")
-public class Answer extends BaseEntity {
+public class Answer extends CommonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AnswerSeq")
@@ -24,7 +25,8 @@ public class Answer extends BaseEntity {
 
     private int dislikeCount;
 
-    @JsonManagedReference
+    private AnswerStatus status;
+
     @ManyToOne
     @JoinColumn(name = "OWNER_ID")
     private User user;

@@ -20,18 +20,17 @@ public abstract class AbstractEntityService<Entity extends BaseEntity> extends B
     }
 
     public ServiceResult<Entity> save(Entity entity) {
-        String isCreated = entity.getCreated_date() == null ? " created" : " updated";
         preSave(entity);
         Entity response = getRepository().save(entity);
-        log.info(entity.getClass().getName() + isCreated + " :{}", response);
+        log.info(entity.getClass().getName() + entity.getCreatedDate() == null ? " created" : " updated" + " :{}", response);
         return createServiceResult(response);
     }
 
     void preSave(Entity entity) {
-        if (entity.getCreated_date() == null) {
-            entity.setCreated_date(new Date());
+        if (entity.getCreatedDate() == null) {
+            entity.setCreatedDate(new Date());
         } else {
-            entity.setModified_date(new Date());
+            entity.setModifiedDate(new Date());
         }
     }
 

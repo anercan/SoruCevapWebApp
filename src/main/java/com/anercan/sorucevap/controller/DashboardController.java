@@ -1,6 +1,5 @@
 package com.anercan.sorucevap.controller;
 
-import com.anercan.sorucevap.controller.auth.BaseController;
 import com.anercan.sorucevap.client.dto.DashboardDto;
 import com.anercan.sorucevap.client.resource.CategoryResource;
 import com.anercan.sorucevap.client.resource.DashboardResource;

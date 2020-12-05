@@ -1,15 +1,17 @@
 package com.anercan.sorucevap.client.dto;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import javax.validation.constraints.Email;
+
 @Data
-@NoArgsConstructor
-public class UserDto extends BaseDto {
+public class CreateUserDto {
 
     @NonNull
-    private String userNameOrMail;
+    private String userName;
+    @Email
+    private String mail;
     @NonNull
     private String password;
 

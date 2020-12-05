@@ -1,4 +1,4 @@
-package com.anercan.sorucevap.controller.auth;
+package com.anercan.sorucevap.controller;
 
 public class CategoryController extends BaseController {
 }

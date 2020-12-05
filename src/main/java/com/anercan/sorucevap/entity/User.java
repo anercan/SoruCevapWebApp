@@ -2,8 +2,8 @@ package com.anercan.sorucevap.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -15,35 +15,29 @@ import java.util.List;
 @Entity
 @Table(name = "USERS")
 @Data
-public class User extends BaseEntity {
+public class User extends CommonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Email(message = "Invalid Mail")
+    @Column(nullable = false, unique = true)
+    @Email
     private String mail;
 
-    @Pattern(regexp = "([a-zA-Z0-9]+\\S)", message = "Invalid UserName")
-    @Size(min = 5, max = 15, message = "Invalid UserName Size")
+    @Column(nullable = false, unique = true)
+    @Pattern(regexp = "([a-zA-Z0-9]+\\S)")
+    @Size(min = 5, max = 15)
     private String username;
 
     @JsonIgnore
-    @Pattern(regexp = "([a-zA-Z0-9]+\\S)", message = "Invalid pwd")
-    @Size(min = 8, max = 30, message = "Invalid pwd size")
+    @Pattern(regexp = "([a-zA-Z0-9]+\\S)")
+    @Size(min = 8, max = 30)
     private String password;
 
+    //todo roles
+
     private int questionStatus;
-
-    private boolean isActive = true;
-
-    @JsonBackReference
-    @OneToMany(mappedBy = "user")
-    private List<Question> questionList = new ArrayList<>();
-
-    @JsonBackReference
-    @OneToMany(mappedBy = "user")
-    private List<Answer> answerList;
 
     @JsonBackReference
     @ManyToMany(cascade = {CascadeType.ALL})

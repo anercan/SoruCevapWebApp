@@ -13,7 +13,7 @@ public class AnswerMapper {
         answerResource.setLikeCount(answer.getLikeCount());
         answerResource.setUserName(answer.getUser().getUsername());
         answerResource.setVerified(answer.isVerified());
-        answerResource.setDate(answer.getCreated_date());
+        answerResource.setDate(answer.getCreatedDate());
 
         return answerResource;
     }

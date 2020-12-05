@@ -1,17 +1,15 @@
 package com.anercan.sorucevap.controller.auth;
 
 import com.anercan.sorucevap.client.dto.QuestionDto;
-import com.anercan.sorucevap.entity.Question;
+import com.anercan.sorucevap.controller.BaseController;
 import com.anercan.sorucevap.client.resource.JsonResponse;
 import com.anercan.sorucevap.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RequestMapping("/auth/question")
+@RequestMapping("/user-question")
 @RestController
-public class QuestionController extends BaseController {
+public class UserQuestionController extends BaseController {
 
     @Autowired
     QuestionService questionService;
@@ -26,15 +24,6 @@ public class QuestionController extends BaseController {
         return userService.getByMail(mail);
     }*/
 
-    @GetMapping("id/{id}")
-    JsonResponse<Question> getByUserId(@PathVariable Long id) {
-        return createJsonResponse(questionService.getById(id));
-    }
-
-    @GetMapping("categories/{id}")
-    JsonResponse<List<Question>> getByCategoryId(@PathVariable Long id) {
-        return createJsonResponse(questionService.getQuestionsByCategoryId(id));
-    }
 
     @PostMapping
     JsonResponse<Boolean> createQuestion(@RequestBody QuestionDto questionDto) {

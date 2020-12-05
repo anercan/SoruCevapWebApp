@@ -1,20 +1,20 @@
 package com.anercan.sorucevap.service;
 
+import com.anercan.sorucevap.client.dto.AnswerFilterDto;
+import com.anercan.sorucevap.client.dto.DashboardDto;
+import com.anercan.sorucevap.client.dto.QuestionFilterDto;
+import com.anercan.sorucevap.client.resource.CategoryResource;
+import com.anercan.sorucevap.client.resource.DashboardResource;
+import com.anercan.sorucevap.client.resource.ServiceResult;
 import com.anercan.sorucevap.dao.AnswerRepository;
 import com.anercan.sorucevap.dao.CategoryRepository;
 import com.anercan.sorucevap.dao.QuestionRepository;
 import com.anercan.sorucevap.dao.query.AnswerQuery;
 import com.anercan.sorucevap.dao.query.QuestionQuery;
-import com.anercan.sorucevap.client.dto.AnswerFilterDto;
-import com.anercan.sorucevap.client.dto.DashboardDto;
-import com.anercan.sorucevap.client.dto.QuestionFilterDto;
 import com.anercan.sorucevap.entity.Answer;
 import com.anercan.sorucevap.entity.Category;
 import com.anercan.sorucevap.entity.Question;
 import com.anercan.sorucevap.enums.FilterStatus;
-import com.anercan.sorucevap.client.resource.CategoryResource;
-import com.anercan.sorucevap.client.resource.DashboardResource;
-import com.anercan.sorucevap.client.resource.ServiceResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,11 +50,11 @@ public class DashboardService extends BaseService {
 
         LocalDate localDate = LocalDate.now();
 
-        if (dto.getFilterStatus().equals(FilterStatus.DAILY)) {
+        if (FilterStatus.DAILY.equals(dto.getFilterStatus())) {
             questionFilterDtoCurrent.setStartDate(Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             questionFilterDtoPrevious.setStartDate(Date.from(localDate.minusDays(1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             questionFilterDtoPrevious.setEndDate(Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
-        } else if (dto.getFilterStatus().equals(FilterStatus.MONTHLY)) {
+        } else if (FilterStatus.MONTHLY.equals(dto.getFilterStatus())) {
             questionFilterDtoCurrent.setStartDate(Date.from(localDate.minusMonths(1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             questionFilterDtoPrevious.setStartDate(Date.from(localDate.minusMonths(2).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             questionFilterDtoPrevious.setEndDate(Date.from(localDate.minusMonths(1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
@@ -80,11 +80,11 @@ public class DashboardService extends BaseService {
 
         LocalDate localDate = LocalDate.now();
 
-        if (dto.getFilterStatus().equals(FilterStatus.DAILY)) {
+        if (FilterStatus.DAILY.equals(dto.getFilterStatus())) {
             answerFilterDtoCurrent.setStartDate(Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             answerFilterDtoPrevious.setStartDate(Date.from(localDate.minusDays(1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             answerFilterDtoPrevious.setEndDate(Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
-        } else if (dto.getFilterStatus().equals(FilterStatus.MONTHLY)) {
+        } else if (FilterStatus.MONTHLY.equals(dto.getFilterStatus())) {
             answerFilterDtoCurrent.setStartDate(Date.from(localDate.minusMonths(1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             answerFilterDtoPrevious.setStartDate(Date.from(localDate.minusMonths(2).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             answerFilterDtoPrevious.setEndDate(Date.from(localDate.minusMonths(1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));

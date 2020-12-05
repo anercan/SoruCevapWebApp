@@ -1,4 +1,4 @@
-package com.anercan.sorucevap.controller.auth;
+package com.anercan.sorucevap.controller;
 
 import com.anercan.sorucevap.client.resource.JsonResponse;
 import com.anercan.sorucevap.client.resource.ServiceResult;

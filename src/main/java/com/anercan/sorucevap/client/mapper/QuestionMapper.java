@@ -19,7 +19,7 @@ public class QuestionMapper {
         questionResource.setTitle(question.getTitle());
         questionResource.setUserName(question.getUser().getUsername());
         questionResource.setContent(question.getContent());
-        questionResource.setDate(question.getCreated_date());
+        questionResource.setDate(question.getCreatedDate());
         for (Answer answer : question.getAnswer()) {
             AnswerResource answerResource = AnswerMapper.mapAnswer(answer);
             answerResourceList.add(answerResource);
