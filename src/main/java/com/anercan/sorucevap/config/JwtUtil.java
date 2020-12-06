@@ -25,9 +25,11 @@ public class JwtUtil {
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(getSecretKey());
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
-        Claims claims = Jwts.claims().setSubject(user.getUsername());
+        Claims claims = Jwts.claims();
         claims.put("userId", user.getId() + "");
         //claims.put("role", user.getRole());
+        claims.put("userName", user.getUsername());
+
 
         JwtBuilder builder = Jwts.builder().setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis())).setExpiration(new Date(System.currentTimeMillis() + sessionTime))
@@ -49,5 +51,15 @@ public class JwtUtil {
         }
     }
 
+    public static String extractUsername(String jwt) {
+        //This line will throw an exception if it is not a signed JWS (as expected)
+        try {
+            return Jwts.parser()
+                    .setSigningKey(DatatypeConverter.parseBase64Binary(getSecretKey()))
+                    .parseClaimsJws(jwt).getBody().get("userName").toString();
+        } catch (Exception e) {
+            return "";
+        }
+    }
 }
 

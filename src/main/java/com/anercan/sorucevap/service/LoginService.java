@@ -1,23 +1,19 @@
 package com.anercan.sorucevap.service;
 
 
-import com.anercan.sorucevap.client.resource.UserResource;
-import com.anercan.sorucevap.config.PropertyUtil;
+import com.anercan.sorucevap.client.dto.UserDto;
+import com.anercan.sorucevap.client.resource.ServiceResult;
 import com.anercan.sorucevap.config.JwtUtil;
 import com.anercan.sorucevap.dao.UserRepository;
-import com.anercan.sorucevap.client.dto.UserDto;
 import com.anercan.sorucevap.entity.User;
-import com.anercan.sorucevap.client.resource.ServiceResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
+import java.util.Optional;
 
 @Service
 public class LoginService extends BaseService {
@@ -28,19 +24,23 @@ public class LoginService extends BaseService {
     @Autowired
     AuthenticationManager authenticationManager;
 
-    public ServiceResult<UserResource> login(UserDto dto) {
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getUserNameOrMail(), dto.getPassword()));
-       return null;
+    public ServiceResult<String> login(UserDto dto) {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getUserNameOrMail(), dto.getPassword()));
+        } catch (BadCredentialsException e) {
+            log.warn("Bad Credentials on Login Operation user:{}", dto.getUserNameOrMail());
+            return createFailResult();
+        }
+        Optional<User> byUsernameOrMail = userRepository.findByUsernameOrMail(dto.getUserNameOrMail());
+        if (byUsernameOrMail.isPresent()) {
+            return createServiceResult(JwtUtil.createJWT(byUsernameOrMail.get()));
+        }
+        return createFailResult();
     }
 
-    public boolean isLogin(HttpServletRequest request) {
-        Cookie token = Arrays.stream(request.getCookies()).
-                filter(cookie -> cookie.getName().equals("token")).findFirst().orElse(null);
-        return token != null && JwtUtil.checkJWT(token.getValue());
-    }
-
-    public ServiceResult<Boolean> logout(UserDto userDto, HttpServletResponse response) {
-        return null;
+    public ServiceResult<Boolean> logout() {
+        SecurityContextHolder.getContext().setAuthentication(null); // Spring security ayarlarından da yapılabilir
+        return createServiceResult(true);
     }
 
 }

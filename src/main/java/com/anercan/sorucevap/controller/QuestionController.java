@@ -22,7 +22,7 @@ public class QuestionController extends BaseController {
 
     //todo verified olmayanalrın 1 ay sonra silinnmesi
     //todo cevaplar için pagenation
-    @GetMapping("getById/{id}")
+    @GetMapping("get-by-id/{id}")
     JsonResponse<QuestionResource> getByQuestionId(@PathVariable Long id) {
         return createJsonResponse(questionService.getByIdWithAnswers(id));
     }

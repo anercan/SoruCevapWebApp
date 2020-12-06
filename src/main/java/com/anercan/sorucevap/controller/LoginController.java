@@ -22,9 +22,9 @@ public class LoginController extends BaseController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/logout")
-    JsonResponse<Boolean> logout(UserDto userDto, HttpServletResponse response) {
-        return createJsonResponse(loginService.logout(userDto, response));
+    @PostMapping("/user-logout")
+    JsonResponse<Boolean> logout() {
+        return createJsonResponse(loginService.logout());
     }
 
     @PostMapping("/user-login")
