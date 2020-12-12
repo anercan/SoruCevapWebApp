@@ -22,7 +22,7 @@ public abstract class AbstractEntityService<Entity extends BaseEntity> extends B
     public ServiceResult<Entity> save(Entity entity) {
         preSave(entity);
         Entity response = getRepository().save(entity);
-        log.info(entity.getClass().getName() + entity.getCreatedDate() == null ? " created" : " updated" + " :{}", response);
+        log.info(entity.getClass().getName() + entity.getCreatedDate() == null ? " created" : " updated" + " :{}", response.toString());
         return createServiceResult(response);
     }
 

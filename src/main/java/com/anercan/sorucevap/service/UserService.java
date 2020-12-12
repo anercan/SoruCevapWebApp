@@ -25,6 +25,17 @@ public class UserService extends AbstractEntityService<User> implements UserDeta
         return userRepository;
     }
 
+    public User getCurrentUser() {
+        Long userId = getUserId();
+        if (userId != null) {
+            Optional<User> byId = userRepository.findById(userId);
+            if (byId.isPresent()) {
+                return byId.get();
+            }
+        }
+        return null;
+    }
+
     public ServiceResult<Optional<User>> getByMail(String mail) {
         if (!userRepository.findByMail(mail).isPresent()) {
             createFailResult();

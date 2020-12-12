@@ -17,7 +17,7 @@ public class JwtUtil {
         return PropertyUtil.getStringValue("api.security.key", "SoruCevapWebApp") + "001"; // dbden gelen üzerine ekleme
     }
 
-    public static String createJWT(User user) {
+    public static String createJWT(String id,String username) {
         long sessionTime = PropertyUtil.getLongValue("api.security.sessiontime", 1800000L);
         String subject = PropertyUtil.getStringValue("api.security.subject", "refresh");
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -26,9 +26,9 @@ public class JwtUtil {
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         Claims claims = Jwts.claims();
-        claims.put("userId", user.getId() + "");
+        claims.put("userId", id);
         //claims.put("role", user.getRole());
-        claims.put("userName", user.getUsername());
+        claims.put("userName", username);
 
 
         JwtBuilder builder = Jwts.builder().setClaims(claims)

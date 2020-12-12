@@ -9,6 +9,7 @@ public class ServiceResult<T> {
     HttpStatus status = HttpStatus.OK;
     T value;
     String message;
+    String redirect;
 
     public ServiceResult() {
     }
@@ -38,6 +39,13 @@ public class ServiceResult<T> {
     public ServiceResult(T value, String message, HttpStatus code) {
         this.value = value;
         this.status = code;
+        this.message = message;
+    }
+
+    public ServiceResult(T value, String message, String redirect, HttpStatus code) {
+        this.value = value;
+        this.status = code;
+        this.redirect = redirect;
         this.message = message;
     }
 

@@ -44,7 +44,7 @@ public class Question extends CommonEntity {
     private List<Category> categories;
 
     @JsonManagedReference
-    @ManyToMany(mappedBy = "questionFollow")
+    @ManyToMany(mappedBy = "questionFollow",cascade = CascadeType.ALL)
     private List<User> usersWhoFollow;
 
     @JsonManagedReference

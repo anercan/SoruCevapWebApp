@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +38,24 @@ public class BaseService {
         return new ServiceResult(null, message, HttpStatus.BAD_REQUEST);
     }
 
+    protected ServiceResult createFailResult(String redirect, String message) {
+        return new ServiceResult(null, message, redirect, HttpStatus.BAD_REQUEST);
+    }
+
     protected ServiceResult createFailResult() {
         return new ServiceResult(null, "", HttpStatus.BAD_REQUEST);
     }
+
+    protected Long getUserId() {
+        try {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            return ((CustomUserDetail) principal).getUserId();
+        } catch (Exception e) {
+            log.info("Exception when get current user : {}", SecurityContextHolder.getContext().getAuthentication(), e);
+            return null;
+        }
+
+    }
+
 
 }

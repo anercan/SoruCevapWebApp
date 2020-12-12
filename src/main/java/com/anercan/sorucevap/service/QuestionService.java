@@ -10,6 +10,7 @@ import com.anercan.sorucevap.entity.User;
 import com.anercan.sorucevap.client.mapper.QuestionMapper;
 import com.anercan.sorucevap.client.resource.QuestionResource;
 import com.anercan.sorucevap.client.resource.ServiceResult;
+import com.anercan.sorucevap.enums.QuestionStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class QuestionService extends AbstractEntityService {
     QuestionRepository questionRepository;
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
     @Override
     BaseRepository getRepository() { return questionRepository; }
@@ -48,7 +49,7 @@ public class QuestionService extends AbstractEntityService {
     }
 
     public ServiceResult<Boolean> createQuestion(QuestionDto questionDto) {
-        User user = userRepository.findById(questionDto.getUserDto().getId()).get();
+        User user = userService.getCurrentUser();
         if (user != null && user.getQuestionStatus() > 0) {
             Question question = new Question();
             question.setUser(user);
@@ -56,9 +57,11 @@ public class QuestionService extends AbstractEntityService {
             //todo categorisini setle belki uygulama kalkarken categoriler static mape alınabilir
             question.setContent(questionDto.getContent());
             user.setQuestionStatus(user.getQuestionStatus() - 1);
-            log.info("Soru oluşturuldu.Soru:{}", question);
-            questionRepository.save(question);
-
+            question.setStatus(QuestionStatus.CREATED);
+            save(question);
+            log.info("Soru oluşturuldu.Soru:{}", question.toString());
+            //todo event
+            //todo spam kontrol ?
             return createServiceResult(Boolean.TRUE);
         }
         log.info("Soru Hakkı ya da user yok.user:{}", user);
@@ -78,16 +81,16 @@ public class QuestionService extends AbstractEntityService {
     }
 
     public ServiceResult<Boolean> addToFollowList(QuestionDto questionDto) {
-        Optional<User> user = userRepository.findById(questionDto.getUserDto().getId());
+        User user = userService.getCurrentUser();
         Optional<Question> question = questionRepository.findById(questionDto.getId());
 
-        if (user.isPresent() || question.isPresent()) {
+        if (user == null || !question.isPresent()) {
             log.error("Question cant added followList.User or Question Empty");
             return createFailResult();
         }
 
-        user.get().getQuestionFollow().add(question.get());
-        userRepository.save(user.get());
+        user.getQuestionFollow().add(question.get());
+        userService.save(user);
 
         return createServiceResult(Boolean.TRUE);
     }

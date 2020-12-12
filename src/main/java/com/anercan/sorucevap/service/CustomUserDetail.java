@@ -2,9 +2,13 @@ package com.anercan.sorucevap.service;
 
 import com.anercan.sorucevap.entity.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CustomUserDetail implements UserDetails {
 
@@ -16,7 +20,9 @@ public class CustomUserDetail implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority("USER"));
+        return authorities;
     }
 
     @Override
@@ -47,5 +53,9 @@ public class CustomUserDetail implements UserDetails {
     @Override
     public boolean isEnabled() {
         return user.isActive();
+    }
+
+    public Long getUserId() {
+        return user.getId();
     }
 }

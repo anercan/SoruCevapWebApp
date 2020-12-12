@@ -45,6 +45,9 @@ public class JwtFilter extends OncePerRequestFilter {
                         usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                     }
+                } else {
+                    request.getRemoteAddr(); // IP blacklist ?
+                    return; //todo bakılacak
                 }
             }
         }

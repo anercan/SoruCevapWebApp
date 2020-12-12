@@ -10,10 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class LoginService extends BaseService {
@@ -26,16 +31,14 @@ public class LoginService extends BaseService {
 
     public ServiceResult<String> login(UserDto dto) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getUserNameOrMail(), dto.getPassword()));
+            Authentication authenticate = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(dto.getUserNameOrMail(), dto.getPassword()));
+            CustomUserDetail principal = (CustomUserDetail) authenticate.getPrincipal();
+            return createServiceResult(JwtUtil.createJWT(principal.getUserId().toString(),principal.getUsername()));
         } catch (BadCredentialsException e) {
             log.warn("Bad Credentials on Login Operation user:{}", dto.getUserNameOrMail());
             return createFailResult();
         }
-        Optional<User> byUsernameOrMail = userRepository.findByUsernameOrMail(dto.getUserNameOrMail());
-        if (byUsernameOrMail.isPresent()) {
-            return createServiceResult(JwtUtil.createJWT(byUsernameOrMail.get()));
-        }
-        return createFailResult();
     }
 
     public ServiceResult<Boolean> logout() {
