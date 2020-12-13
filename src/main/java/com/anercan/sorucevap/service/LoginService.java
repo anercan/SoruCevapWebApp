@@ -5,20 +5,13 @@ import com.anercan.sorucevap.client.dto.UserDto;
 import com.anercan.sorucevap.client.resource.ServiceResult;
 import com.anercan.sorucevap.config.JwtUtil;
 import com.anercan.sorucevap.dao.UserRepository;
-import com.anercan.sorucevap.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class LoginService extends BaseService {
@@ -34,7 +27,7 @@ public class LoginService extends BaseService {
             Authentication authenticate = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(dto.getUserNameOrMail(), dto.getPassword()));
             CustomUserDetail principal = (CustomUserDetail) authenticate.getPrincipal();
-            return createServiceResult(JwtUtil.createJWT(principal.getUserId().toString(),principal.getUsername()));
+            return createServiceResult(JwtUtil.createJWT(principal.getUserId().toString(), principal.getUsername()));
         } catch (BadCredentialsException e) {
             log.warn("Bad Credentials on Login Operation user:{}", dto.getUserNameOrMail());
             return createFailResult();

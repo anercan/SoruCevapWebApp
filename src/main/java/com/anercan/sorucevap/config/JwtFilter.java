@@ -3,9 +3,7 @@ package com.anercan.sorucevap.config;
 import com.anercan.sorucevap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -32,24 +30,22 @@ public class JwtFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader("Authorization");
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication != null && (authentication instanceof AnonymousAuthenticationToken)) {
-                String jwt = authHeader.substring(7);
-                if (JwtUtil.checkJWT(jwt)) {
-                    String username = JwtUtil.extractUsername(jwt);
-                    if (username != null) {
-                        UserDetails userDetails = userService.loadUserByUsername(username);
+            String jwt = authHeader.substring(7);
+            if (JwtUtil.checkJWT(jwt)) {
+                String username = JwtUtil.extractUsername(jwt);
+                if (username != null) {
+                    UserDetails userDetails = userService.findByUsername(username);
 
-                        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                        usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-                    }
-                } else {
-                    request.getRemoteAddr(); // IP blacklist ?
-                    return; //todo bakılacak
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                 }
+            } else {
+                filterChain.doFilter(request, response);
+                return; //todo bakılacak
             }
+
         }
         filterChain.doFilter(request, response);
     }

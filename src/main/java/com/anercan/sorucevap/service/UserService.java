@@ -44,8 +44,6 @@ public class UserService extends AbstractEntityService<User> implements UserDeta
         return createServiceResult(userRepository.findByMail(mail));
     }
 
-
-    @Override
     public UserDetails loadUserByUsername(String usernameOrMail) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsernameOrMail(usernameOrMail);
         if (!user.isPresent()) {
@@ -54,6 +52,13 @@ public class UserService extends AbstractEntityService<User> implements UserDeta
         return new CustomUserDetail(user.get());
     }
 
+    public UserDetails findByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (!user.isPresent()) {
+            throw new UsernameNotFoundException(username);
+        }
+        return new CustomUserDetail(user.get());
+    }
 
     public ServiceResult<Boolean> createUser(CreateUserDto userDto) {
         Optional<User> userOpt = userRepository.findByUsernameOrMail(userDto.getUserName().toLowerCase());
